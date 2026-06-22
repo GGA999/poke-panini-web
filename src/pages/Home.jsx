@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Home.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const recommendedProducts = [
   {
@@ -35,21 +36,36 @@ const recommendedProducts = [
 ];
 
 // MIX CARD
-const MixCard = ({ title, description, btnText, bgClass, btnClass, icon }) => (
-  <div className={`${styles['mix-card']} ${styles[bgClass]}`}>
-    <div className={styles['mix-card-content']}>
-      <h3 className={styles['mix-title']}>
-        <span className={styles['mix-icon']}>{icon}</span> {title}
-      </h3>
+const MixCard = ({
+  title,
+  description,
+  btnText,
+  bgClass,
+  btnClass,
+  icon,
+  to,
+}) => {
+  const navigate = useNavigate();
 
-      <p className={styles['mix-description']}>{description}</p>
+  return (
+    <div className={`${styles['mix-card']} ${styles[bgClass]}`}>
+      <div className={styles['mix-card-content']}>
+        <h3 className={styles['mix-title']}>
+          <span className={styles['mix-icon']}>{icon}</span> {title}
+        </h3>
 
-      <button className={`${styles.btn} ${styles[btnClass]}`}>
-        <span>{btnText}</span>
-      </button>
+        <p className={styles['mix-description']}>{description}</p>
+
+        <button
+          className={`${styles.btn} ${styles[btnClass]}`}
+          onClick={() => navigate(to)}
+        >
+          <span>{btnText}</span>
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // PRODUCT CARD
 const ProductCard = ({ product }) => (
@@ -107,15 +123,19 @@ export default function App() {
           btnText="Inizia a comporre"
           bgClass="bg-poke"
           btnClass="btn-orange"
+          //riga che apre Carrello.jsx se premuto
+          to="/Poke"
           icon="🥣"
         />
 
         <MixCard
           title="Crea il tuo Panino"
-          description="Pane artigianale e farciture gourmet."
+          description="Pane artigianale e farciture gourmet per il massimo della
+          soddisfazione."
           btnText="Inizia a comporre"
           bgClass="bg-panino"
           btnClass="btn-green"
+          to="/panino"
           icon="🥪"
         />
       </section>
@@ -142,4 +162,4 @@ export default function App() {
       </section>
     </div>
   );
-}
+} 
