@@ -9,6 +9,10 @@ import condimentiIcon from '../Assets/condimenti.svg';
 import salseIcon from '../Assets/salse.svg';
 import cartIcon from '../Assets/Cart.svg';
 import cartSel from '../Assets/Cart_sele.svg';
+import insalata from '../Assets/insalata.png';
+import quinoa from '../Assets/quinoa.png'
+import riso_bianco from '../Assets/riso_bianco.png';
+import riso_venere from '../Assets/riso_venere.png';
 
 const sizes = [
   {
@@ -36,22 +40,22 @@ const bases = [
   {
     id: 'Riso bianco',
     label: 'Riso bianco',
-    image: 'https://images.unsplash.com/photo-1516685018646-549198525c1b?w=300&q=80',
+    image: riso_bianco,
   },
   {
     id: 'Riso venere',
     label: 'Riso venere',
-    image: 'https://images.unsplash.com/photo-1594911774802-8822a707cbb0?w=300&q=80',
+    image: riso_venere,
   },
   {
     id: 'Quinoa',
     label: 'Quinoa',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&q=80',
+    image: quinoa,
   },
   {
     id: 'Insalata',
     label: 'Insalata',
-    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&q=80',
+    image: insalata,
   },
 ];
 
@@ -133,7 +137,7 @@ export default function Poke() {
                       </span>
                     </span>
 
-                    <strong>{size.label}</strong>
+                    <strong className={styles.dimensione}>{size.label}</strong>
                     <span className={styles.cardDescription}>
                       {size.description}
                     </span>
@@ -196,4 +200,4 @@ export default function Poke() {
       />
     </div>
   );
-} 
+}
