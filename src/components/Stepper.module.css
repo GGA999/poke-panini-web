@@ -1,0 +1,59 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bullet {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-700);
+  color: var(--color-text-muted);
+}
+
+.label {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-600);
+  color: var(--color-text-muted);
+}
+
+.line {
+  width: 56px;
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 999px;
+}
+
+.done {
+  border-color: rgba(20, 83, 45, 0.6);
+  background: rgba(20, 83, 45, 0.12);
+  color: var(--color-secondary);
+}
+
+.current {
+  border-color: rgba(194, 65, 12, 0.6);
+  background: rgba(194, 65, 12, 0.12);
+  color: var(--color-primary);
+}
+
+.doneLine {
+  background: rgba(20, 83, 45, 0.45);
+}
+
+.upcoming {
+}
+
+

@@ -1,0 +1,256 @@
+/* ============================================================
+   BUTTON.CSS — Button e IconButton
+   ============================================================
+   
+   Varianti:
+     .btn--primary-green   → sfondo verde pieno
+     .btn--primary-orange  → sfondo arancio pieno
+     .btn--outline-green   → bordo verde, trasparente
+     .btn--outline-orange  → bordo arancio, trasparente
+     .btn--ghost           → solo testo, nessun bordo
+   
+   Dimensioni:
+     .btn--sm   → piccolo
+     (default)  → medio
+     .btn--lg   → grande
+   
+   Stato:
+     .btn--full → larghezza 100%
+   
+   IconButton:
+     .icon-btn  → bottone quadrato per icone
+   ============================================================ */
+
+/* --- Base --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 12px var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color     var(--transition-fast),
+    color            var(--transition-fast),
+    opacity          var(--transition-fast),
+    box-shadow       var(--transition-fast);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --- Freccia animata (span dentro il bottone) --- */
+.btn .btn-label {
+  display: inline-block;
+  position: relative;
+  transition: padding-right var(--transition-normal);
+}
+
+.btn .btn-label::after {
+  content: '\00bb';
+  position: absolute;
+  right: -18px;
+  opacity: 0;
+  transition: opacity var(--transition-normal), right var(--transition-normal);
+}
+
+.btn:hover .btn-label {
+  padding-right: 22px;
+}
+
+.btn:hover .btn-label::after {
+  opacity: 1;
+  right: 0;
+}
+
+/* --- Varianti colore --- */
+.btn--primary-green {
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  color: #ffffff;
+}
+
+.btn--primary-green:hover:not(:disabled) {
+  background-color: var(--color-green-hover);
+  border-color: var(--color-green-hover);
+}
+
+.btn--primary-orange {
+  background-color: var(--color-orange);
+  border-color: var(--color-orange);
+  color: #ffffff;
+}
+
+.btn--primary-orange:hover:not(:disabled) {
+  background-color: var(--color-orange-hover);
+  border-color: var(--color-orange-hover);
+}
+
+.btn--outline-green {
+  background-color: transparent;
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.btn--outline-green:hover:not(:disabled) {
+  background-color: var(--color-green);
+  color: #ffffff;
+}
+
+.btn--outline-orange {
+  background-color: transparent;
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+.btn--outline-orange:hover:not(:disabled) {
+  background-color: var(--color-orange);
+  color: #ffffff;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-green);
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background-color: var(--color-green-light);
+}
+
+/* --- Dimensioni --- */
+.btn--sm {
+  padding: 8px var(--space-4);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+
+.btn--lg {
+  padding: 16px var(--space-8);
+  font-size: var(--text-lg);
+  border-radius: var(--radius-lg);
+}
+
+/* --- Larghezza piena --- */
+.btn--full {
+  width: 100%;
+}
+
+/* --- Stato caricamento --- */
+.btn--loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn--loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+.btn--primary-orange.btn--loading::after,
+.btn--outline-orange.btn--loading::after {
+  border-color: rgba(160, 65, 0, 0.25);
+  border-top-color: var(--color-orange);
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   ICON BUTTON — bottone quadrato solo icona
+   ============================================================ */
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-white);
+  color: var(--text-gray);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    color            var(--transition-fast),
+    border-color     var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background-color: var(--color-green-light);
+  color: var(--color-green);
+  border-color: var(--color-green);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+.icon-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Varianti icon-btn */
+.icon-btn--sm {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+}
+
+.icon-btn--lg {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+}
+
+.icon-btn--ghost {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.icon-btn--ghost:hover {
+  border-color: transparent;
+  background-color: var(--color-green-light);
+}
+
+.icon-btn--danger:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
