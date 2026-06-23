@@ -193,7 +193,6 @@ export default function Poke() {
               <span>Selezionato</span>
             </div>
             <button className={styles.continueButton} type="button">
-              Continua
             </button>
           </>
         }

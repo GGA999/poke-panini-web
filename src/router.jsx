@@ -10,6 +10,7 @@ const Panino = lazy(() => import('./pages/Panino'));
 const Ricette = lazy(() => import('./pages/Ricette'));
 const Carrello = lazy(() => import('./pages/Carrello'));
 const Ordine = lazy(() => import('./pages/Ordine'));
+const Poke2 = lazy(() => import('./pages/poke2'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -49,8 +50,8 @@ export const router = createBrowserRouter(
           element: withSuspense(Ordine),
         },
         {
-          path: 'configura',
-          element: withSuspense(Ordine),
+          path: 'poke2',
+          element: withSuspense(Poke2),
         },
         {
           path: 'ordine/:id',
