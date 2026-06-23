@@ -7,7 +7,8 @@ import baseIcon from '../Assets/Base.svg';
 import proteineIcon from '../Assets/proteine.svg';
 import condimentiIcon from '../Assets/condimenti.svg';
 import salseIcon from '../Assets/salse.svg';
-import cartIcon from '../Assets/Cart.svg'
+import cartIcon from '../Assets/Cart.svg';
+import cartSel from '../Assets/Cart_sele.svg';
 
 const sizes = [
   {
@@ -21,7 +22,7 @@ const sizes = [
     label: 'Regular',
     price: 12.5,
     description: '2 proteine, 4 condimenti, 2 salse',
-    badge: 'Piu scelto',
+    badge: 'Più scelto',
   },
   {
     id: 'Large',
@@ -35,145 +36,104 @@ const bases = [
   {
     id: 'Riso bianco',
     label: 'Riso bianco',
-    image:
-      'https://images.unsplash.com/photo-1516685018646-549198525c1b?w=300&q=80',
+    image: 'https://images.unsplash.com/photo-1516685018646-549198525c1b?w=300&q=80',
   },
   {
     id: 'Riso venere',
     label: 'Riso venere',
-    image:
-      'https://images.unsplash.com/photo-1594911774802-8822a707cbb0?w=300&q=80',
+    image: 'https://images.unsplash.com/photo-1594911774802-8822a707cbb0?w=300&q=80',
   },
   {
     id: 'Quinoa',
     label: 'Quinoa',
-    image:
-      'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&q=80',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&q=80',
   },
   {
     id: 'Insalata',
     label: 'Insalata',
-    image:
-      'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&q=80',
+    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&q=80',
   },
 ];
 
 export default function Poke() {
-  const { initialize, type, updateSelection, setPricing } =
-    useConfigurator();
+  const { initialize, type, updateSelection, setPricing } = useConfigurator();
   const [selectedSize, setSelectedSize] = useState('Regular');
   const [selectedBase, setSelectedBase] = useState('Riso venere');
   const hasProteine = false;
   const hasCondimenti = false;
   const hasSalse = false;
+
   const steps = [
-    {
-      id: 'base',
-      label: 'Base',
-      icon: baseIcon,
-      disabled: false,
-    },
-    {
-      id: 'proteine',
-      label: 'Proteine',
-      icon: proteineIcon,
-      disabled: !hasProteine,
-    },
-    {
-      id: 'condimenti',
-      label: 'Condimenti',
-      icon: condimentiIcon,
-      disabled: !hasCondimenti,
-    },
-    {
-      id: 'salse',
-      label: 'Salse',
-      icon: salseIcon,
-      disabled: !hasSalse,
-    },
+    { id: 'base', label: 'Base', icon: baseIcon, disabled: false },
+    { id: 'proteine', label: 'Proteine', icon: proteineIcon, disabled: !hasProteine },
+    { id: 'condimenti', label: 'Condimenti', icon: condimentiIcon, disabled: !hasCondimenti },
+    { id: 'salse', label: 'Salse', icon: salseIcon, disabled: !hasSalse },
   ];
-  const currentPrice =
-    sizes.find((size) => size.id === selectedSize)?.price ?? 0;
+
+  const currentPrice = sizes.find((size) => size.id === selectedSize)?.price ?? 0;
+
   useEffect(() => {
     if (type !== 'poke') {
       initialize('poke');
     }
   }, [type, initialize]);
+
   useEffect(() => {
     updateSelection('size', selectedSize);
     updateSelection('base', selectedBase);
     setPricing(currentPrice);
-  }, [
-    currentPrice,
-    selectedBase,
-    selectedSize,
-    setPricing,
-    updateSelection,
-  ]);
+  }, [currentPrice, selectedBase, selectedSize, setPricing, updateSelection]);
+
   return (
     <div className={styles.page}>
       <div className={styles.shell}>
-        <ConfiguratorSideMenu
-          activeId="base"
-          items={steps}
-        />
+        <ConfiguratorSideMenu activeId="base" items={steps} />
+        
         <main className={styles.main}>
-          <p className={styles.stepIndicator}>
-            Step 1 di 4
-          </p>
-          <h1 className={styles.title}>
-            Scegli la dimensione e la base
-          </h1>
+          <p className={styles.stepIndicator}>Step 1 di 4</p>
+          <h1 className={styles.title}>Scegli la dimensione e la base</h1>
           <p className={styles.subtitle}>
             Crea la tua poke perfetta partendo dalle fondamenta.
             Scegli quanto hai fame e il tuo cereale o insalata preferita.
           </p>
+
+          {/* SEZIONE 1: SIZE */}
           <section className={styles.section}>
             <div className={styles.sectionTitle}>
-              <span className={styles.stepNumber}>
-                1
-              </span>
-              <h2>
-                Quanto vuoi che sia grande?
-              </h2>
+              <span className={styles.stepNumber}>1</span>
+              <h2>Quanto vuoi che sia grande?</h2>
             </div>
+            
             <div className={styles.sizeGrid}>
               {sizes.map((size) => {
-                const isSelected =
-                  selectedSize === size.id;
+                const isSelected = selectedSize === size.id;
                 return (
                   <button
                     key={size.id}
-                    className={`${styles.sizeCard} ${isSelected ? styles.selected : ''
-                      }`}
+                    className={`${styles.sizeCard} ${isSelected ? styles.selected : ''}`}
                     type="button"
                     onClick={() => setSelectedSize(size.id)}
                     aria-pressed={isSelected}
                   >
-                                  <img
-                className={styles.cart}
-                src={salseIcon}
-                alt=""
-                aria-hidden="true"
-              />
                     {size.badge && (
-                      <span className={styles.badge}>
-                        {size.badge}
-                      </span>
+                      <span className={styles.badge}>{size.badge}</span>
                     )}
+                    
+                    {/* Contenitore Flexbox con Icona a sinistra e Prezzo a destra */}
                     <span className={styles.cardHeader}>
-                      <span
-                        className={styles.cardIcon}
-                        aria-hidden="true"
-                      > 
+                      <span className={styles.cardIcon}>
+                        <img
+                          src={isSelected ? cartSel : cartIcon}
+                          alt=""
+                          aria-hidden="true"
+                        />
                       </span>
                       <span className={styles.price}>
                         €{size.price.toFixed(2)}
                       </span>
                     </span>
-                    <strong>
-                      {size.label}
-                    </strong>
+
+                    <strong>{size.label}</strong>
                     <span className={styles.cardDescription}>
                       {size.description}
                     </span>
@@ -182,38 +142,29 @@ export default function Poke() {
               })}
             </div>
           </section>
+
+          {/* SEZIONE 2: BASES */}
           <section className={styles.section}>
             <div className={styles.sectionTitle}>
-              <span className={styles.stepNumber}>
-                2
-              </span>
-              <h2>
-                Scegli la tua base
-              </h2>
+              <span className={styles.stepNumber}>2</span>
+              <h2>Scegli la tua base</h2>
             </div>
+            
             <div className={styles.baseGrid}>
               {bases.map((base) => {
-                const isSelected =
-                  selectedBase === base.id;
+                const isSelected = selectedBase === base.id;
                 return (
                   <button
                     key={base.id}
-                    className={`${styles.baseCard} ${isSelected ? styles.selected : ''
-                      }`}
+                    className={`${styles.baseCard} ${isSelected ? styles.selected : ''}`}
                     type="button"
                     onClick={() => setSelectedBase(base.id)}
                     aria-pressed={isSelected}
                   >
                     <span className={styles.imageContainer}>
-
-                      <img
-                        src={base.image}
-                        alt={base.label}
-                      />
+                      <img src={base.image} alt={base.label} />
                     </span>
-                    <span>
-                      {base.label}
-                    </span>
+                    <span>{base.label}</span>
                   </button>
                 );
               })}
@@ -221,15 +172,12 @@ export default function Poke() {
           </section>
         </main>
       </div>
+
       <BottomActionBar
         left={
           <div className={styles.totalBox}>
-            <span>
-              Totale stimato
-            </span>
-            <strong>
-              €{currentPrice.toFixed(2)}
-            </strong>
+            <span>Totale stimato</span>
+            <strong>€{currentPrice.toFixed(2)}</strong>
           </div>
         }
         right={
@@ -238,14 +186,9 @@ export default function Poke() {
               <strong>
                 {selectedSize} + {selectedBase}
               </strong>
-              <span>
-                Selezionato
-              </span>
+              <span>Selezionato</span>
             </div>
-            <button
-              className={styles.continueButton}
-              type="button"
-            >
+            <button className={styles.continueButton} type="button">
               Continua
             </button>
           </>
@@ -253,4 +196,4 @@ export default function Poke() {
       />
     </div>
   );
-}
+} 

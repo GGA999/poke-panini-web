@@ -82,15 +82,18 @@
 }
 
 .sizeCard {
+  width: 100%;
+  min-height: 168.5px;
   background: var(--bg-white);
   border: 2px solid transparent;
   border-radius: var(--radius-lg);
-  padding: 24px 20px;
+  padding: 24px;
   cursor: pointer;
   position: relative;
   box-shadow: var(--shadow-sm);
   text-align: left;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 6px;
   transition:
     border-color var(--transition-fast),
@@ -103,37 +106,49 @@
 }
 
 .selected {
-  border-color: #bfa37a;
+  border-color: var(--color-orange);
   background-color: #fffdf9;
 }
 
 .badge {
+  font-family: var(--font-display);
+  height: 23px;
+  width: 82px;
+  text-align: center;
   position: absolute;
-  top: -10px;
-  right: 15px;
+  top: -2px; /* Allineato correttamente in alto */
+  right: -2px;
+  border: 2px solid transparent;
   background-color: var(--color-orange);
   color: #ffffff;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.04em;
   padding: 4px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: 0px var(--radius-lg) 0px var(--radius-lg);
   text-transform: uppercase;
 }
 
+/* Allinea l'icona del carrello a sinistra e il prezzo a destra sulla stessa riga */
 .cardHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   margin-bottom: 6px;
-  gap: 12px;
 }
 
 .cardIcon {
-  color: #768a73;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+.cardIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .price {
@@ -141,6 +156,7 @@
   font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
+  font-family:var(--font-display);
 }
 
 .sizeCard strong {
@@ -189,10 +205,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.cart{
-  height: auto;
 }
 
 .baseImageActive {
