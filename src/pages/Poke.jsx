@@ -1,111 +1,256 @@
-import { useConfigurator } from '../context/ConfiguratorContext';
 import { useEffect, useState } from 'react';
+import { useConfigurator } from '../context/ConfiguratorContext';
+import BottomActionBar from '../components/BottomActionBar';
+import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
 import styles from './poke.module.css';
+import baseIcon from '../Assets/Base.svg';
+import proteineIcon from '../Assets/proteine.svg';
+import condimentiIcon from '../Assets/condimenti.svg';
+import salseIcon from '../Assets/salse.svg';
+import cartIcon from '../Assets/Cart.svg'
+
+const sizes = [
+  {
+    id: 'Small',
+    label: 'Small',
+    price: 9.5,
+    description: '1 proteina, 2 condimenti, 1 salsa',
+  },
+  {
+    id: 'Regular',
+    label: 'Regular',
+    price: 12.5,
+    description: '2 proteine, 4 condimenti, 2 salse',
+    badge: 'Piu scelto',
+  },
+  {
+    id: 'Large',
+    label: 'Large',
+    price: 15.5,
+    description: '3 proteine, 6 condimenti, 3 salse',
+  },
+];
+
+const bases = [
+  {
+    id: 'Riso bianco',
+    label: 'Riso bianco',
+    image:
+      'https://images.unsplash.com/photo-1516685018646-549198525c1b?w=300&q=80',
+  },
+  {
+    id: 'Riso venere',
+    label: 'Riso venere',
+    image:
+      'https://images.unsplash.com/photo-1594911774802-8822a707cbb0?w=300&q=80',
+  },
+  {
+    id: 'Quinoa',
+    label: 'Quinoa',
+    image:
+      'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&q=80',
+  },
+  {
+    id: 'Insalata',
+    label: 'Insalata',
+    image:
+      'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&q=80',
+  },
+];
 
 export default function Poke() {
-  const { initialize, type } = useConfigurator();
-
-  // Stati per gestire la selezione delle card nelle due sezioni
-  const [sezione1Siz, setSezione1Size] = useState('');
-  const [sezione2Size, setSezione2Size] = useState('');
-
+  const { initialize, type, updateSelection, setPricing } =
+    useConfigurator();
+  const [selectedSize, setSelectedSize] = useState('Regular');
+  const [selectedBase, setSelectedBase] = useState('Riso venere');
+  const hasProteine = false;
+  const hasCondimenti = false;
+  const hasSalse = false;
+  const steps = [
+    {
+      id: 'base',
+      label: 'Base',
+      icon: baseIcon,
+      disabled: false,
+    },
+    {
+      id: 'proteine',
+      label: 'Proteine',
+      icon: proteineIcon,
+      disabled: !hasProteine,
+    },
+    {
+      id: 'condimenti',
+      label: 'Condimenti',
+      icon: condimentiIcon,
+      disabled: !hasCondimenti,
+    },
+    {
+      id: 'salse',
+      label: 'Salse',
+      icon: salseIcon,
+      disabled: !hasSalse,
+    },
+  ];
+  const currentPrice =
+    sizes.find((size) => size.id === selectedSize)?.price ?? 0;
   useEffect(() => {
     if (type !== 'poke') {
       initialize('poke');
     }
   }, [type, initialize]);
-
+  useEffect(() => {
+    updateSelection('size', selectedSize);
+    updateSelection('base', selectedBase);
+    setPricing(currentPrice);
+  }, [
+    currentPrice,
+    selectedBase,
+    selectedSize,
+    setPricing,
+    updateSelection,
+  ]);
   return (
-    <div className={styles['page-wrapper']}>
-    <header className={styles['hero-header']}></header>
-      {/* CORPO CENTRALE (Menu a sinistra + Contenuto a destra) */}
-      <div className={styles['main-layout']}>
-        
-        {/* 2. MENU VERTICALE (A Sinistra) */}
-        <aside className={styles['sidebar-menu']}>
-          <h1 className={styles['title']}>Il Tuo Mix</h1>
-          <h5 className={styles['subbtitle']}>Personalizza il tuo ordine</h5>
-          <ul>
-            <li className={styles['menu-item-active']}>Base</li>
-            <li className={styles['menu-item-not-active']}>Proteine</li>
-            <li className={styles['menu-item-not-active']}>Condimenti</li>
-            <li className={styles['menu-item-not-active']}>Salse</li>
-          </ul>
-        </aside>
-
-        {/* CONTENUTO DELLA PAGINA (A Destra) */}
-        <main className={styles['sections-container']}>
-                  <h1>Crea il tuo mix perfetto.</h1>
-        <p>Scegli tra la freschezza esotica delle nostre Poke o il calore dei nostri Panini.</p>
-          {/* SEZIONE 1 */}
-          <section className={styles['content-section']}>
-            <p className={styles['section-text']}>
-              Seleziona la dimensione ideale per la tua Poke Bowl personalizzata.
-            </p>
-            
-            <div className={styles['cards-grid']}>
-              <div 
-                className={`${styles['card']} ${sezione1Siz === 'small' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione1Size('small')}
-              >
-                Small
-              </div>
-              <div 
-                className={`${styles['card']} ${sezione1Siz === 'regular' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione1Size('regular')}
-              >
-                Regular
-              </div>
-              <div 
-                className={`${styles['card']} ${sezione1Siz === 'large' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione1Size('large')}
-              >
-                Large
-              </div>
+    <div className={styles.page}>
+      <div className={styles.shell}>
+        <ConfiguratorSideMenu
+          activeId="base"
+          items={steps}
+        />
+        <main className={styles.main}>
+          <p className={styles.stepIndicator}>
+            Step 1 di 4
+          </p>
+          <h1 className={styles.title}>
+            Scegli la dimensione e la base
+          </h1>
+          <p className={styles.subtitle}>
+            Crea la tua poke perfetta partendo dalle fondamenta.
+            Scegli quanto hai fame e il tuo cereale o insalata preferita.
+          </p>
+          <section className={styles.section}>
+            <div className={styles.sectionTitle}>
+              <span className={styles.stepNumber}>
+                1
+              </span>
+              <h2>
+                Quanto vuoi che sia grande?
+              </h2>
+            </div>
+            <div className={styles.sizeGrid}>
+              {sizes.map((size) => {
+                const isSelected =
+                  selectedSize === size.id;
+                return (
+                  <button
+                    key={size.id}
+                    className={`${styles.sizeCard} ${isSelected ? styles.selected : ''
+                      }`}
+                    type="button"
+                    onClick={() => setSelectedSize(size.id)}
+                    aria-pressed={isSelected}
+                  >
+                                  <img
+                className={styles.cart}
+                src={salseIcon}
+                alt=""
+                aria-hidden="true"
+              />
+                    {size.badge && (
+                      <span className={styles.badge}>
+                        {size.badge}
+                      </span>
+                    )}
+                    <span className={styles.cardHeader}>
+                      <span
+                        className={styles.cardIcon}
+                        aria-hidden="true"
+                      > 
+                      </span>
+                      <span className={styles.price}>
+                        €{size.price.toFixed(2)}
+                      </span>
+                    </span>
+                    <strong>
+                      {size.label}
+                    </strong>
+                    <span className={styles.cardDescription}>
+                      {size.description}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </section>
+          <section className={styles.section}>
+            <div className={styles.sectionTitle}>
+              <span className={styles.stepNumber}>
+                2
+              </span>
+              <h2>
+                Scegli la tua base
+              </h2>
+            </div>
+            <div className={styles.baseGrid}>
+              {bases.map((base) => {
+                const isSelected =
+                  selectedBase === base.id;
+                return (
+                  <button
+                    key={base.id}
+                    className={`${styles.baseCard} ${isSelected ? styles.selected : ''
+                      }`}
+                    type="button"
+                    onClick={() => setSelectedBase(base.id)}
+                    aria-pressed={isSelected}
+                  >
+                    <span className={styles.imageContainer}>
 
-          {/* SEZIONE 2 */}
-          <section className={styles['content-section']}>
-            <p className={styles['section-text']}>
-              Scegli la dimensione della bevanda o del contorno da abbinare al menu.
-            </p>
-            
-            <div className={styles['cards-grid']}>
-              <div 
-                className={`${styles['card']} ${sezione2Size === 'small' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione2Size('small')}
-              >
-                Small
-              </div>
-              <div 
-                className={`${styles['card']} ${sezione2Size === 'regular' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione2Size('regular')}
-              >
-                Regular
-              </div>
-              <div 
-                className={`${styles['card']} ${sezione2Size === 'large' ? styles['card-active'] : ''}`}
-                onClick={() => setSezione2Size('large')}
-              >
-                Large
-              </div>
+                      <img
+                        src={base.image}
+                        alt={base.label}
+                      />
+                    </span>
+                    <span>
+                      {base.label}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </section>
-
         </main>
       </div>
-
-      {/* 3. FOOTER FINALE */}
-      <footer className={styles['page-footer']}>
-        <div className={styles['footer-price']}>
-          <span>Totale:</span> <strong>€ 12,50</strong>
-        </div>
-        <button className={styles['footer-button']}>
-          Avanti
-        </button>
-      </footer>
-
+      <BottomActionBar
+        left={
+          <div className={styles.totalBox}>
+            <span>
+              Totale stimato
+            </span>
+            <strong>
+              €{currentPrice.toFixed(2)}
+            </strong>
+          </div>
+        }
+        right={
+          <>
+            <div className={styles.selectionSummary}>
+              <strong>
+                {selectedSize} + {selectedBase}
+              </strong>
+              <span>
+                Selezionato
+              </span>
+            </div>
+            <button
+              className={styles.continueButton}
+              type="button"
+            >
+              Continua
+            </button>
+          </>
+        }
+      />
     </div>
   );
 }
