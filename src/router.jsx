@@ -54,10 +54,6 @@ export const router = createBrowserRouter(
           element: withSuspense(Poke2),
         },
         {
-          path: 'ordine/:id',
-          element: withSuspense(Ordine),
-        },
-        {
           path: '*',
           element: <NotFound />,
         },

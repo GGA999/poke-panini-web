@@ -1,95 +1,170 @@
 import { useEffect, useState } from 'react';
-import { useConfigurator } from '../context/ConfiguratorContext';
 import BottomActionBar from '../components/BottomActionBar';
+import ConfiguratorOptionCard from '../components/ConfiguratorOptionCard';
 import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
-import './poke2.css';
+import { useConfigurator } from '../context/ConfiguratorContext';
+import styles from './poke2.module.css';
+import baseIcon from '../Assets/base.svg';
+import proteineIcon from '../Assets/proteine.svg';
+import condimentiIcon from '../Assets/condimenti.svg';
+import salseIcon from '../Assets/salse.svg';
+import salmone from '../Assets/salmone.png';
+import gamberi from '../Assets/gambiere.png';
+import pollo from '../Assets/pollo.png';
+import tofu from '../Assets/tofu.png';
+import tonno from '../Assets/tonno.png';
+import uovo from '../Assets/uovo.png';
 
-// Dati mockati per le opzioni delle proteine basati sull'immagine
-const PROTEIN_OPTIONS = [
-  { id: 'salmone', name: 'Salmone', desc: 'Fresco e marinato', price: 1.50, image: '/images/salmone.jpg' },
-  { id: 'tonno', name: 'Tonno', desc: 'Qualità sashimi', price: 2.00, image: '/images/tonno.jpg' },
-  { id: 'pollo', name: 'Pollo', desc: 'Grigliato al naturale', price: 0, image: '/images/pollo.jpg' },
-  { id: 'gamberi', name: 'Gamberi', desc: 'Al vapore, delicati', price: 1.80, image: '/images/gamberi.jpg' },
-  { id: 'tofu', name: 'Tofu', desc: 'Bio e proteico', price: 0, image: '/images/tofu.jpg' },
-  { id: 'uovo', name: 'Uovo', desc: 'Barzotto, km 0', price: 0, image: '/images/uovo.jpg' },
+const proteinOptions = [
+  {
+    id: 'salmone',
+    name: 'Salmone',
+    description: 'Fresco e marinato',
+    price: 1.5,
+    image:salmone
+},
+  {
+    id: 'tonno',
+    name: 'Tonno',
+    description: 'Qualita sashimi',
+    price: 2,
+    image: tonno
+  },
+  {
+    id: 'pollo',
+    name: 'Pollo',
+    description: 'Grigliato al naturale',
+    price: 0,
+    image: pollo
+  },
+  {
+    id: 'gamberi',
+    name: 'Gamberi',
+    description: 'Al vapore, delicati',
+    price: 1.8,
+    image: gamberi
+  },
+  {
+    id: 'tofu',
+    name: 'Tofu',
+    description: 'Bio e proteico',
+    price: 0,
+    image: tofu
+  },
+  {
+    id: 'uovo',
+    name: 'Uovo',
+    description: 'Barzotto, km 0',
+    price: 0,
+    image: uovo
+  },
 ];
 
-export default function ProteineConfigurator() {
-  // Assumiamo che il contesto metta a disposizione le info necessarie e la funzione per aggiornare lo stato globale
-  const { currentSelection, updateSelection } = useConfigurator();
-  const [selectedProteins, setSelectedProteins] = useState([]);
+const steps = [
+  { id: 'base', label: 'Base', icon: baseIcon, disabled: false },
+  { id: 'proteine', label: 'Proteine', icon: proteineIcon, disabled: false },
+  { id: 'condimenti', label: 'Condimenti', icon: condimentiIcon, disabled: true },
+  { id: 'salse', label: 'Salse', icon: salseIcon, disabled: true },
+];
 
-  // Sincronizza lo stato locale con il contesto se necessario
+export default function Poke2() {
+  const { initialize, type, selections, updateSelection, pricing, setPricing } =
+    useConfigurator();
+  const [selectedProteins, setSelectedProteins] = useState(
+    selections.proteins || [],
+  );
+
+  const basePrice = Number(pricing || 12.5);
+  const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
+    const protein = proteinOptions.find((option) => option.id === proteinId);
+    return sum + (protein?.price || 0);
+  }, 0);
+  const currentPrice = basePrice + proteinsTotal;
+  const sizeLabel = selections.size || 'Regular';
+  const baseLabel = selections.base || 'Riso venere';
+
   useEffect(() => {
-    if (currentSelection?.proteins) {
-      setSelectedProteins(currentSelection.proteins);
+    if (type !== 'poke') {
+      initialize('poke');
     }
-  }, [currentSelection]);
+  }, [type, initialize]);
+
+  useEffect(() => {
+    updateSelection('proteins', selectedProteins);
+    setPricing(currentPrice);
+  }, [currentPrice, selectedProteins, setPricing, updateSelection]);
 
   const handleSelectProtein = (id) => {
-    setSelectedProteins((prev) => {
-      if (prev.includes(id)) {
-        // Rimuovi se già selezionato
-        const updated = prev.filter((item) => item !== id);
-        updateSelection?.({ proteins: updated });
-        return updated;
-      } else {
-        // Limite di massimo 2 opzioni
-        if (prev.length >= 2) return prev;
-        const updated = [...prev, id];
-        updateSelection?.({ proteins: updated });
-        return updated;
+    setSelectedProteins((previous) => {
+      if (previous.includes(id)) {
+        return previous.filter((item) => item !== id);
       }
+
+      if (previous.length >= 2) {
+        return previous;
+      }
+
+      return [...previous, id];
     });
   };
 
   return (
-    <div className="configurator-container">
-      {/* Menu Laterale */}
-      <ConfiguratorSideMenu currentStep="proteine" />
+    <div className={styles.page}>
+      <div className={styles.shell}>
+        <ConfiguratorSideMenu activeId="proteine" items={steps} />
 
-      {/* Contenuto Principale */}
-      <main className="configurator-content">
-        <header className="content-header">
-          <span className="step-indicator">STEP 2 DI 4</span>
-          <h1>Scegli le tue Proteine</h1>
-          <p>Seleziona fino a 2 opzioni per la tua base. Ogni scelta aggiunge freschezza e gusto al tuo Poke.</p>
-        </header>
+        <main className={styles.main}>
+          <header className={styles.contentHeader}>
+            <p className={styles.stepIndicator}>Step 2 di 4</p>
+            <h1>Scegli le tue proteine</h1>
+            <p>
+              Seleziona fino a 2 opzioni per la tua base. Ogni scelta aggiunge
+              freschezza e gusto alla tua poke.
+            </p>
+          </header>
 
-        {/* Griglia delle Proteine */}
-        <div className="options-grid">
-          {PROTEIN_OPTIONS.map((protein) => {
-            const isSelected = selectedProteins.includes(protein.id);
-            return (
-              <div
-                key={protein.id}
-                className={`option-card ${isSelected ? 'selected' : ''}`}
-                onClick={() => handleSelectProtein(protein.id)}
-              >
-                <div className="image-container">
-                  <img src={protein.image} alt={protein.name} />
-                </div>
-                <div className="card-info">
-                  <div className="text-group">
-                    <h3>{protein.name}</h3>
-                    <p>{protein.desc}</p>
-                  </div>
-                  <span className="price-tag">
-                    {protein.price > 0 ? `+€${protein.price.toFixed(2)}` : 'Incluso'}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </main>
+          <div className={styles.optionsGrid}>
+            {proteinOptions.map((protein) => {
+              const isSelected = selectedProteins.includes(protein.id);
+              const isDisabled = !isSelected && selectedProteins.length >= 2;
 
-      {/* Barra delle Azioni Inferiore */}
-      <BottomActionBar 
-        totalPrice={12.50} // Sostituisci con il calcolo dinamico del tuo contesto
-        summaryText="Regular + Riso Venere" 
-        buttonText="Continua"
-        onNext={() => console.log('Prossimo step')}
+              return (
+                <ConfiguratorOptionCard
+                  key={protein.id}
+                  title={protein.name}
+                  description={protein.description}
+                  price={protein.price}
+                  image={protein.image}
+                  selected={isSelected}
+                  disabled={isDisabled}
+                  onClick={() => handleSelectProtein(protein.id)}
+                />
+              );
+            })}
+          </div>
+        </main>
+      </div>
+
+      <BottomActionBar
+        left={
+          <div className={styles.totalBox}>
+            <span>Totale stimato</span>
+            <strong>€{currentPrice.toFixed(2)}</strong>
+          </div>
+        }
+        right={
+          <>
+            <div className={styles.selectionSummary}>
+              <strong>
+                {sizeLabel} + {baseLabel}
+              </strong>
+              <span>{selectedProteins.length}/2 proteine selezionate</span>
+            </div>
+            <button className={styles.continueButton} type="button">
+              Continua
+            </button>
+          </>
+        }
       />
     </div>
   );

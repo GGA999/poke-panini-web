@@ -1,137 +1,128 @@
-:root {
-  --primary-orange: #ff6600;
-  --bg-light: #f9f9f9;
-  --text-dark: #1a1a1a;
-  --text-muted: #666666;
-  --border-color: #e0e0e0;
+.page {
+  min-height: calc(100vh - 66px);
+  background-color: var(--bg-main);
+  padding-bottom: 112px;
 }
 
-.configurator-container {
+.shell {
   display: flex;
-  min-height: 100vh;
-  background-color: var(--bg-light);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding-bottom: 80px; /* Spazio per la BottomActionBar fissa */
+  min-height: calc(100vh - 66px);
 }
 
-.configurator-content {
+.main {
   flex: 1;
-  padding: 40px 60px;
   max-width: 1200px;
+  padding: 40px clamp(20px, 5vw, 60px);
 }
 
-.content-header {
+.contentHeader {
   margin-bottom: 32px;
+  max-width: 760px;
 }
 
-.step-indicator {
-  font-size: 12px;
+.stepIndicator {
+  color: #2e5927;
+  font-size: 11px;
   font-weight: 700;
-  color: #4a6b36; /* Verde scuro ripreso dal menu laterale attivo */
-  letter-spacing: 0.5px;
-  display: block;
-  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
 }
 
-.content-header h1 {
-  font-size: 32px;
-  font-weight: 800;
+.contentHeader h1 {
   color: var(--text-dark);
-  margin: 0 0 8px 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  
 }
 
-.content-header p {
-  color: var(--text-muted);
+.contentHeader p:not(.stepIndicator) {
+  color: var(--text-gray);
   font-size: 15px;
+  line-height: 1.5;
   margin: 0;
 }
 
-/* Griglia delle card */
-.options-grid {
+.optionsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
+  
 }
 
-.option-card {
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid transparent;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
+.totalBox span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
 }
 
-.option-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+.totalBox strong {
+  color: var(--color-orange);
+  font-size: 22px;
 }
 
-/* Stato selezionato (Bordo verde scuro coerente con l'UI) */
-.option-card.selected {
-  border-color: #2e5926; 
-  background-color: #fbfdfa;
-}
-
-.image-container {
-  width: 100%;
-  height: 180px;
-  background-color: #f5f5f5;
-  overflow: hidden;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-info {
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-grow: 1;
-}
-
-.text-group h3 {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 4px 0;
-  color: var(--text-dark);
-}
-
-.text-group p {
+.selectionSummary {
+  color: #2e5927;
   font-size: 13px;
-  color: var(--text-muted);
-  margin: 0;
+  font-weight: 600;
+  text-align: right;
 }
 
-.price-tag {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-dark);
-  white-space: nowrap;
+.selectionSummary span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 2px;
 }
 
-/* Responsiveness per schermi più piccoli */
+.continueButton {
+  background-color: #ff6f00;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 36px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.continueButton:hover {
+  background-color: #e66400;
+}
+
 @media (max-width: 992px) {
-  .options-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .optionsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 768px) {
-  .configurator-container {
-    flex-direction: column;
+@media (max-width: 860px) {
+  .shell {
+    display: block;
   }
-  .options-grid {
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding-bottom: 188px;
+  }
+
+  .optionsGrid {
     grid-template-columns: 1fr;
   }
-  .configurator-content {
-    padding: 20px;
+
+  .selectionSummary {
+    text-align: left;
+  }
+
+  .continueButton {
+    width: 100%;
   }
 }

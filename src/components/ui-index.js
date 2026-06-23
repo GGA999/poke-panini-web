@@ -10,6 +10,7 @@ export { default as Stepper } from './Stepper';
 export { default as ProgressBar } from './ProgressBar';
 export { default as BottomActionBar } from './BottomActionBar';
 export { default as ConfiguratorSideMenu } from './ConfiguratorSideMenu';
+export { default as ConfiguratorOptionCard } from './ConfiguratorOptionCard';
 export { default as PriceSummary } from './PriceSummary';
 export { default as Skeleton } from './Skeleton';
 export { default as EmptyState } from './EmptyState';
