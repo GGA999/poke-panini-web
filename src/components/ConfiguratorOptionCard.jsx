@@ -22,13 +22,14 @@ export default function ConfiguratorOptionCard({
       <span className={styles.imageContainer}>
         <img src={image} alt={title} />
       </span>
-
       <span className={styles.info}>
         <span className={styles.textGroup}>
           <strong>{title}</strong>
           <span>{description}</span>
         </span>
-        <span className={styles.priceTag}>{priceText}</span>
+        <span className={`${styles.priceTag} ${price === 0 ? styles.gr : styles.re}`}>
+          {price === 0 ? 'Gratis' : `+€${price.toFixed(2)}`}
+        </span>
       </span>
     </button>
   );

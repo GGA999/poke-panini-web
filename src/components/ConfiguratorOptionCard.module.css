@@ -74,15 +74,18 @@
 }
 
 .priceTag {
-  color: var(--color-orange);
+  color: var(--text-dark);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
-  line-height:20px;
 }
 
-.priceTag > .priceTagGratis{
-  color: var(--text-dark)
+.gr {
+  color: var(--text-dark);
+}
+
+.re {
+  color: var(--color-orange);
 }
 
 @media (max-width: 520px) {
