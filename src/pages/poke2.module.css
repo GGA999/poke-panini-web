@@ -50,7 +50,8 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-  
+  height: 616px;
+  width: 864px;
 }
 
 .totalBox span {

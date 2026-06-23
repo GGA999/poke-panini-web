@@ -1,6 +1,6 @@
 .card {
-  width: 100%;
-  max-width: 268px;
+  width: 272px;
+  max-width: 288px;
   background: var(--bg-white);
   border: 2px solid transparent;
   border-radius: var(--radius-lg);
@@ -74,10 +74,15 @@
 }
 
 .priceTag {
-  color: var(--text-dark);
+  color: var(--color-orange);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   white-space: nowrap;
+  line-height:20px;
+}
+
+.priceTag > .priceTagGratis{
+  color: var(--text-dark)
 }
 
 @media (max-width: 520px) {
