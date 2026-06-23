@@ -1,0 +1,80 @@
+.card {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-4);
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.card:focus-within {
+  outline: 3px solid rgba(194, 65, 12, 0.25);
+  outline-offset: 2px;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.dot {
+  margin-top: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid var(--color-border);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0);
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-700);
+  margin-bottom: 0.25rem;
+}
+
+.description {
+  font-size: var(--font-size-14);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.selected {
+  border-color: rgba(20, 83, 45, 0.45);
+  box-shadow: inset 0 0 0 2px rgba(20, 83, 45, 0.12);
+}
+
+.selected .dot {
+  border-color: rgba(20, 83, 45, 0.75);
+  background: rgba(20, 83, 45, 0.85);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: grayscale(25%);
+}
+
+.disabled .dot {
+  border-style: dashed;
+}
+

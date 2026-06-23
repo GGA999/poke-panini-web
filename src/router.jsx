@@ -49,6 +49,14 @@ export const router = createBrowserRouter(
           element: withSuspense(Ordine),
         },
         {
+          path: 'configura',
+          element: withSuspense(Ordine),
+        },
+        {
+          path: 'ordine/:id',
+          element: withSuspense(Ordine),
+        },
+        {
           path: '*',
           element: <NotFound />,
         },

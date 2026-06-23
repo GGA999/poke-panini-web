@@ -1,0 +1,183 @@
+/* ============================================================
+   CARD.CSS — Card prodotto e Mix Card (Pokè/Panino)
+   ============================================================ */
+
+/* ============================================================
+   PRODUCT CARD
+   ============================================================ */
+
+.product-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Immagine */
+.product-card__image-wrap {
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.04);
+}
+
+/* Corpo */
+.product-card__body {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Header (titolo + prezzo) */
+.product-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.product-card__title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.product-card__price {
+  color: var(--color-orange);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Ingredienti */
+.product-card__ingredients {
+  color: var(--text-gray);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  margin-bottom: var(--space-5);
+  flex-grow: 1;
+}
+
+/* Tag */
+.product-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+/* ============================================================
+   MIX CARD (Pokè / Panino) — card con sfondo colorato
+   ============================================================ */
+
+.mix-card {
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  color: #ffffff;
+  min-height: 380px;
+  width: 100%;                /* mai min-width fisso */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal);
+}
+
+.mix-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Sfondi tematici */
+.mix-card--poke {
+  background:
+    linear-gradient(to top, rgba(21, 66, 18, 0.92) 0%, rgba(21, 66, 18, 0.55) 100%),
+    url('../../Assets/poke.svg') center / cover no-repeat;
+}
+
+.mix-card--panino {
+  background:
+    linear-gradient(to top, rgba(160, 65, 0, 0.92) 0%, rgba(160, 65, 0, 0.55) 100%),
+    url('../../Assets/Pane.svg') center / cover no-repeat;
+}
+
+/* Contenuto interno */
+.mix-card__content {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.mix-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  line-height: 1.2;
+}
+
+.mix-card__description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+  opacity: 0.9;
+  max-width: 85%;
+}
+
+/* Badge "Nuovo" opzionale sulla mix card */
+.mix-card__badge {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: var(--z-base);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .mix-card {
+    min-height: 300px;
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .mix-card__title {
+    font-size: var(--text-xl);
+  }
+
+  .mix-card__description {
+    font-size: var(--text-sm);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card__image-wrap {
+    height: 180px;
+  }
+}
