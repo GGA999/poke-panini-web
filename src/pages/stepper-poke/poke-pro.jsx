@@ -69,9 +69,9 @@ const steps = [
 ];
 
 export default function Poke2() {
-  const { initialize, type, selections, updateSelection, getLimits, setPricing } = useConfigurator();
+  const { initialize, type, selections, updateSelection, getLimits, setPricing } =
+    useConfigurator();
   const [selectedProteins, setSelectedProteins] = useState(selections?.proteins || []);
-  
 
   const navigate = useNavigate();
 
@@ -79,14 +79,14 @@ export default function Poke2() {
   // Se `pricing` arriva corrotto/asincrono (es. da localStorage), il totale esplode.
   // Qui lo forziamo a un numero valido e fallback solo se non è finito.
   // DOPO (legge il prezzo base dalle selections, non dal pricing aggiornato)
-const basePrice = Number(selections?.basePrice) || 12.5;
-const limits = getLimits(selections?.size);
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  const limits = getLimits(selections?.size);
 
-const proteinsTotal = selectedProteins.reduce((sum, id) => {
-  const p = proteinOptions.find((o) => o.id === id);
-  return sum + (p?.price || 0);
-}, 0);
-const currentPrice = basePrice + proteinsTotal;
+  const proteinsTotal = selectedProteins.reduce((sum, id) => {
+    const p = proteinOptions.find((o) => o.id === id);
+    return sum + (p?.price || 0);
+  }, 0);
+  const currentPrice = basePrice + proteinsTotal;
   const sizeLabel = selections.size || 'Regular';
   const baseLabel = selections.base || 'Riso venere';
 
@@ -97,10 +97,10 @@ const currentPrice = basePrice + proteinsTotal;
   }, [type, initialize]);
 
   // DOPO
-useEffect(() => {
-  updateSelection('proteins', selectedProteins);
-  setPricing(currentPrice);
-}, [selectedProteins]);
+  useEffect(() => {
+    updateSelection('proteins', selectedProteins);
+    setPricing(currentPrice);
+  }, [selectedProteins]);
 
   const handleSelectProtein = (id) => {
     setSelectedProteins((previous) => {
@@ -108,7 +108,7 @@ useEffect(() => {
         return previous.filter((item) => item !== id);
       }
 
-if (previous.length >= limits.proteine) return previous;
+      if (previous.length >= limits.proteine) return previous;
 
       return [...previous, id];
     });
@@ -164,7 +164,9 @@ if (previous.length >= limits.proteine) return previous;
               <strong>
                 {sizeLabel} + {baseLabel}
               </strong>
-              <span>{selectedProteins.length}/{limits.proteine} proteine selezionate</span>
+              <span>
+                {selectedProteins.length}/{limits.proteine} proteine selezionate
+              </span>
             </div>
             <button
               className={styles.continueButton}

@@ -57,8 +57,10 @@ export default function Salse() {
     const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 };
     return sum + (prices[id] || 0);
   }, 0);
-  const saucesExtra = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id))
-    .reduce((a, b) => a + b.price, 0);
+  const saucesExtra = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id)).reduce(
+    (a, b) => a + b.price,
+    0
+  );
   const totalPrice = basePrice + proteinsExtra + saucesExtra;
 
   useEffect(() => {

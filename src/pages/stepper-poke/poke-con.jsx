@@ -39,9 +39,9 @@ const INGREDIENTS_DATA = [
 ];
 
 export default function PokeConfigurator() {
-const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
 
-const limits = getLimits(selections?.size);
+  const limits = getLimits(selections?.size);
   const navigate = useNavigate();
 
   // Recupera i dati salvati dallo step precedente (o usa fallback)
@@ -70,12 +70,12 @@ const limits = getLimits(selections?.size);
     { id: 'salse', label: 'Salse', icon: salseIcon, disabled: !hasSalse },
   ];
 
-const basePrice = Number(selections?.basePrice) || 12.5;
-const proteinsExtra = (selections?.proteins || []).reduce((sum, id) => {
-  const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 }; // solo quelli a pagamento
-  return sum + (prices[id] || 0);
-}, 0);
-const currentPrice = basePrice + proteinsExtra;
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  const proteinsExtra = (selections?.proteins || []).reduce((sum, id) => {
+    const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 }; // solo quelli a pagamento
+    return sum + (prices[id] || 0);
+  }, 0);
+  const currentPrice = basePrice + proteinsExtra;
 
   useEffect(() => {
     if (type !== 'poke') {
@@ -94,7 +94,8 @@ const currentPrice = basePrice + proteinsExtra;
       return;
     }
 
-      if (selectedIngredients.length >= limits.condimenti) {      setAlert({
+    if (selectedIngredients.length >= limits.condimenti) {
+      setAlert({
         variant: 'warning',
         title: 'Limite ingredienti raggiunto',
         description: 'Puoi selezionare un massimo di 5 ingredienti',

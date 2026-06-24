@@ -84,13 +84,13 @@ export default function Poke() {
     }
   }, [type, initialize]);
 
-// DOPO — salva anche basePrice così gli step successivi non ricalcolano dalla size
-useEffect(() => {
-  updateSelection('size', selectedSize);
-  updateSelection('base', selectedBase);
-  updateSelection('basePrice', currentPrice); // ← aggiunto
-  setPricing(currentPrice);
-}, [selectedBase, selectedSize]); // eslint-disable-line react-hooks/exhaustive-deps
+  // DOPO — salva anche basePrice così gli step successivi non ricalcolano dalla size
+  useEffect(() => {
+    updateSelection('size', selectedSize);
+    updateSelection('base', selectedBase);
+    updateSelection('basePrice', currentPrice); // ← aggiunto
+    setPricing(currentPrice);
+  }, [selectedBase, selectedSize]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.page}>
