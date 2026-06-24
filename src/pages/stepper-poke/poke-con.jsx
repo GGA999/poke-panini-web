@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import BottomActionBar from '../../components/BottomActionBar';
+import Alert from '../../components/Alert';
 import styles from './Poke-con.module.css';
 
 // Icone del Menu Laterale
@@ -49,7 +51,16 @@ export default function PokeConfigurator() {
   const hasProteine = true;
   const hasSalse = false;
 
+  const [alert, setAlert] = useState(null);
+
+  useEffect(() => {
+    if (!alert) return;
+    const t = window.setTimeout(() => setAlert(null), 3000);
+    return () => window.clearTimeout(t);
+  }, [alert]);
+
   // Configurazione dei passaggi per il menu laterale (come nel primo step)
+
   const steps = [
     { id: 'base', label: 'Base', icon: baseIcon, disabled: false },
     { id: 'proteine', label: 'Proteine', icon: proteineIcon, disabled: !hasProteine },
@@ -72,29 +83,46 @@ export default function PokeConfigurator() {
 
   const toggleIngredient = (id) => {
     if (selectedIngredients.includes(id)) {
-      setSelectedIngredients(selectedIngredients.filter(item => item !== id));
-    } else {
-      if (selectedIngredients.length < 5) {
-        setSelectedIngredients([...selectedIngredients, id]);
-      } else {
-        alert("Puoi selezionare un massimo di 5 ingredienti!");
-      }
+      setSelectedIngredients(selectedIngredients.filter((item) => item !== id));
+      return;
     }
+
+    if (selectedIngredients.length >= 5) {
+      setAlert({
+        variant: 'warning',
+        title: 'Limite ingredienti raggiunto',
+        description: 'Puoi selezionare un massimo di 5 ingredienti',
+      });
+      return;
+    }
+
+    setSelectedIngredients([...selectedIngredients, id]);
   };
 
   return (
     <div className={styles.pokePageContainer}>
+      {alert ? (
+        <Alert
+          variant={alert.variant}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => setAlert(null)}
+          className={styles.alert}
+        />
+      ) : null}
       <div className={styles.shell}>
         {/* Menu Laterale di Sinistra configurato correttamente */}
         <ConfiguratorSideMenu activeId="condimenti" items={steps} />
 
         {/* Contenuto Centrale del Configuratore */}
         <main className={styles.pokeMainContent}>
-          <p className={styles.stepIndicator}>STEP 3 DI 4</p>
-          <h1 className={styles.configuratorTitle}>Personalizza con Verdure e Topping</h1>
-          <p className={styles.configuratorSubtitle}>
-            Scegli fino a 5 ingredienti per rendere il tuo Poke unico e croccante.
-          </p>
+          <header className={styles.contentHeader}>
+            <p className={styles.stepIndicator}>STEP 3 DI 4</p>
+            <h1 className={styles.configuratorTitle}>Personalizza con Verdure e Topping</h1>
+            <p className={styles.configuratorSubtitle}>
+              Scegli fino a 5 ingredienti per rendere il tuo Poke unico e croccante.
+            </p>
+          </header>
 
           <div className={styles.ingredientsGrid}>
             {INGREDIENTS_DATA.map((ingredient) => {

@@ -21,10 +21,27 @@
   margin: 0 0 8px;
 }
 
+.contentHeader h1 {
+  color: var(--text-dark);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.contentHeader p:not(.stepIndicator) {
+  color: var(--text-gray);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .pokeMainContent {
   flex: 1;
   padding: 40px 60px;
-  background-color: var(--bg-main);}
+  background-color: var(--bg-main);
+}
 
 /* Griglia per disporre le card in modo responsivo */
 .ingredientsGrid {

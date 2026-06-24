@@ -26,15 +26,3 @@ body,
   padding: 0;
   height: 100%;
 }
-
-
-import avocadoImg from '../../Assets/avocado.png';
-import edamameImg from '../../Assets/asparagi.png';
-import cetrioloImg from '../../Assets/cetriolo.png';
-import caroteImg from '../../Assets/carote.png';
-import mangoImg from '../../Assets/mango.png';
-import cavoloRossoImg from '../../Assets/cavolo.png';
-import maisImg from '../../Assets/mais.png';
-import cipollaImg from '../../Assets/cipollaante.png';
-import sesamoImg from '../../Assets/sesamo.png';
-import algheImg from '../../Assets/alghe.png';
