@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import BottomActionBar from '../../components/BottomActionBar';
+import Alert from '../../components/Alert';
 import styles from './poke_salse.module.css';
 
 import baseIcon from '../../Assets/base.svg';
@@ -47,6 +48,7 @@ export default function Salse() {
   const navigate = useNavigate();
 
   const [selectedSalse, setSelectedSalse] = useState(selections?.salse || []);
+  const [alert, setAlert] = useState(null);
 
   const limits = getLimits(selections?.size);
   const selectedSize = selections?.size || 'Regular';
@@ -73,6 +75,12 @@ export default function Salse() {
     updateSelection('salse', selectedSalse);
   }, [selectedSalse, updateSelection]);
 
+  useEffect(() => {
+    if (!alert) return;
+    const timer = window.setTimeout(() => setAlert(null), 3000);
+    return () => window.clearTimeout(timer);
+  }, [alert]);
+
   const toggleSalsa = (id) => {
     if (selectedSalse.includes(id)) {
       setSelectedSalse(selectedSalse.filter((s) => s !== id));
@@ -81,7 +89,14 @@ export default function Salse() {
 
     if (selectedSalse.length < limits.salse) {
       setSelectedSalse([...selectedSalse, id]);
+      return;
     }
+
+    setAlert({
+      variant: 'warning',
+      title: 'Limite salse raggiunto',
+      description: `Puoi selezionare un massimo di ${limits.salse} salse`,
+    });
   };
 
   const steps = [
@@ -113,6 +128,16 @@ export default function Salse() {
 
   return (
     <div className={styles.pokePageContainer}>
+      {alert ? (
+        <Alert
+          variant={alert.variant}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => setAlert(null)}
+          className={styles.alert}
+        />
+      ) : null}
+
       <div className={styles.shell}>
         <ConfiguratorSideMenu activeId="salse" items={steps} />
 

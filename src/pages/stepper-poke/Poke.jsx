@@ -61,7 +61,8 @@ const bases = [
 ];
 
 export default function Poke() {
-  const { initialize, type, updateSelection, setPricing } = useConfigurator();
+  const { initialize, type, selections, updateSelection, setPricing, getLimits } =
+    useConfigurator();
   const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState('Regular');
   const [selectedBase, setSelectedBase] = useState('Riso venere');
@@ -84,13 +85,33 @@ export default function Poke() {
     }
   }, [type, initialize]);
 
-  // DOPO — salva anche basePrice così gli step successivi non ricalcolano dalla size
+  // DOPO — quando cambia la size, rifila le selezioni eccedenti
   useEffect(() => {
+    const newLimits = getLimits(selectedSize);
+
+    // Rifila proteine se eccedono il nuovo limite
+    const currentProteins = selections?.proteins || [];
+    if (currentProteins.length > newLimits.proteine) {
+      updateSelection('proteins', currentProteins.slice(0, newLimits.proteine));
+    }
+
+    // Rifila salse se eccedono il nuovo limite
+    const currentSalse = selections?.salse || [];
+    if (currentSalse.length > newLimits.salse) {
+      updateSelection('salse', currentSalse.slice(0, newLimits.salse));
+    }
+
+    // Rifila condimenti se eccedono il nuovo limite
+    const currentCondimenti = selections?.condimenti || [];
+    if (currentCondimenti.length > newLimits.condimenti) {
+      updateSelection('condimenti', currentCondimenti.slice(0, newLimits.condimenti));
+    }
+
     updateSelection('size', selectedSize);
     updateSelection('base', selectedBase);
-    updateSelection('basePrice', currentPrice); // ← aggiunto
+    updateSelection('basePrice', currentPrice);
     setPricing(currentPrice);
-  }, [selectedBase, selectedSize]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedSize, selectedBase]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={styles.page}>

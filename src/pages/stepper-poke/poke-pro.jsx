@@ -132,7 +132,7 @@ export default function Poke2() {
           <div className={styles.optionsGrid}>
             {proteinOptions.map((protein) => {
               const isSelected = selectedProteins.includes(protein.id);
-              const isDisabled = !isSelected && selectedProteins.length >= 2;
+              const isDisabled = !isSelected && selectedProteins.length >= limits.proteine;
 
               return (
                 <ConfiguratorOptionCard

@@ -98,7 +98,7 @@ export default function PokeConfigurator() {
       setAlert({
         variant: 'warning',
         title: 'Limite ingredienti raggiunto',
-        description: 'Puoi selezionare un massimo di 5 ingredienti',
+        description: `Puoi selezionare un massimo di ${limits.condimenti} ingredienti`,
       });
       return;
     }
