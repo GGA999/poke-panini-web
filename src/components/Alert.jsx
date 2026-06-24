@@ -1,12 +1,6 @@
 import styles from './Alert.module.css';
 
-export default function Alert({
-  variant = 'info',
-  title,
-  description,
-  onClose,
-  className = '',
-}) {
+export default function Alert({ variant = 'info', title, description, onClose, className = '' }) {
   return (
     <div className={`${styles.alert} ${styles[variant]} ${className}`.trim()} role="alert">
       <div className={styles.text}>
@@ -21,4 +15,3 @@ export default function Alert({
     </div>
   );
 }
-

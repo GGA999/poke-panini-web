@@ -30,8 +30,8 @@
   gap: 8px;
 }
 
-.active img{
-filter: grayscale(1) brightness(0.95) contrast(1.2) sepia(1) saturate(8) hue-rotate(35deg);
+.active img {
+  filter: grayscale(1) brightness(0.95) contrast(1.2) sepia(1) saturate(8) hue-rotate(35deg);
 }
 .item {
   width: 100%;
@@ -57,25 +57,20 @@ filter: grayscale(1) brightness(0.95) contrast(1.2) sepia(1) saturate(8) hue-rot
 }
 
 .active {
-  background-color: #2D5A27;
+  background-color: #2d5a27;
   color: #9dd090;
 }
 
 .active:hover {
   background-color: #9dd090;
-  color: #2D5A27;
+  color: #2d5a27;
 }
-
-
 
 .icon {
   width: 20px;
   text-align: center;
   flex: 0 0 auto;
 }
-
-
-
 
 @media (max-width: 860px) {
   .sidebar {

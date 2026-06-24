@@ -22,9 +22,7 @@ export function ConfiguratorProvider({ children }) {
         const isSelected = current.includes(value);
         return {
           ...prev,
-          [category]: isSelected
-            ? current.filter((v) => v !== value)
-            : [...current, value],
+          [category]: isSelected ? current.filter((v) => v !== value) : [...current, value],
         };
       }
       return { ...prev, [category]: value };
@@ -50,11 +48,7 @@ export function ConfiguratorProvider({ children }) {
     reset,
   };
 
-  return (
-    <ConfiguratorContext.Provider value={value}>
-      {children}
-    </ConfiguratorContext.Provider>
-  );
+  return <ConfiguratorContext.Provider value={value}>{children}</ConfiguratorContext.Provider>;
 }
 
 export function useConfigurator() {

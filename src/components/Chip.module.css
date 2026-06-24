@@ -8,7 +8,10 @@
   color: var(--color-text);
   padding: 0.35rem 0.8rem;
   cursor: pointer;
-  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    transform 120ms ease;
 }
 
 .chip:focus-visible {
@@ -33,4 +36,3 @@
   filter: grayscale(25%);
   border-style: dashed;
 }
-

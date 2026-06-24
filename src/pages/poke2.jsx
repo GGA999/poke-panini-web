@@ -21,42 +21,42 @@ const proteinOptions = [
     name: 'Salmone',
     description: 'Fresco e marinato',
     price: 1.5,
-    image:salmone
-},
+    image: salmone,
+  },
   {
     id: 'tonno',
     name: 'Tonno',
     description: 'Qualita sashimi',
     price: 2,
-    image: tonno
+    image: tonno,
   },
   {
     id: 'pollo',
     name: 'Pollo',
     description: 'Grigliato al naturale',
     price: 0,
-    image: pollo
+    image: pollo,
   },
   {
     id: 'gamberi',
     name: 'Gamberi',
     description: 'Al vapore, delicati',
     price: 1.8,
-    image: gamberi
+    image: gamberi,
   },
   {
     id: 'tofu',
     name: 'Tofu',
     description: 'Bio e proteico',
     price: 0,
-    image: tofu
+    image: tofu,
   },
   {
     id: 'uovo',
     name: 'Uovo',
     description: 'Barzotto, km 0',
     price: 0,
-    image: uovo
+    image: uovo,
   },
 ];
 
@@ -68,11 +68,8 @@ const steps = [
 ];
 
 export default function Poke2() {
-  const { initialize, type, selections, updateSelection, pricing, setPricing } =
-    useConfigurator();
-  const [selectedProteins, setSelectedProteins] = useState(
-    selections.proteins || [],
-  );
+  const { initialize, type, selections, updateSelection, pricing, setPricing } = useConfigurator();
+  const [selectedProteins, setSelectedProteins] = useState(selections.proteins || []);
 
   const basePrice = Number(pricing || 12.5);
   const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
@@ -118,8 +115,8 @@ export default function Poke2() {
             <p className={styles.stepIndicator}>Step 2 di 4</p>
             <h1>Scegli le tue proteine</h1>
             <p>
-              Seleziona fino a 2 opzioni per la tua base. Ogni scelta aggiunge
-              freschezza e gusto alla tua poke.
+              Seleziona fino a 2 opzioni per la tua base. Ogni scelta aggiunge freschezza e gusto
+              alla tua poke.
             </p>
           </header>
 

@@ -13,7 +13,9 @@
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  transition:
+    box-shadow var(--transition-normal),
+    transform var(--transition-normal);
 }
 
 .product-card:hover {
@@ -97,7 +99,7 @@
   padding: var(--space-10) var(--space-8);
   color: #ffffff;
   min-height: 380px;
-  width: 100%;                /* mai min-width fisso */
+  width: 100%; /* mai min-width fisso */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

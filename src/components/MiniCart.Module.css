@@ -16,12 +16,10 @@
   position: relative;
 }
 
-
 .miniCart:hover {
   box-shadow: none;
   transform: none;
 }
-
 
 .icon {
   display: flex;

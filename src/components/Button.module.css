@@ -39,10 +39,10 @@
   text-decoration: none;
   transition:
     background-color var(--transition-fast),
-    border-color     var(--transition-fast),
-    color            var(--transition-fast),
-    opacity          var(--transition-fast),
-    box-shadow       var(--transition-fast);
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
   -webkit-user-select: none;
   user-select: none;
 }
@@ -53,7 +53,7 @@
 }
 
 .btn:disabled,
-.btn[aria-disabled="true"] {
+.btn[aria-disabled='true'] {
   opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
@@ -71,7 +71,9 @@
   position: absolute;
   right: -18px;
   opacity: 0;
-  transition: opacity var(--transition-normal), right var(--transition-normal);
+  transition:
+    opacity var(--transition-normal),
+    right var(--transition-normal);
 }
 
 .btn:hover .btn-label {
@@ -185,7 +187,9 @@
 }
 
 @keyframes btn-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================================
@@ -206,8 +210,8 @@
   cursor: pointer;
   transition:
     background-color var(--transition-fast),
-    color            var(--transition-fast),
-    border-color     var(--transition-fast);
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .icon-btn:hover {

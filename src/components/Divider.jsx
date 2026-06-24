@@ -9,4 +9,3 @@ export default function Divider({ className = '', orientation = 'horizontal' }) 
     />
   );
 }
-
