@@ -72,6 +72,17 @@
   flex: 0 0 auto;
 }
 
+.item.active .icon img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(96%) sepia(9%) saturate(1746%) hue-rotate(45deg) brightness(89%) contrast(80%);
+  transition: filter 0.2s ease;
+}
+
+.item:hover .icon img {
+  filter: brightness(0) saturate(100%) invert(25%) sepia(67%) saturate(442%) hue-rotate(66deg) brightness(94%) contrast(88%);
+}
+
 @media (max-width: 860px) {
   .sidebar {
     width: 100%;
