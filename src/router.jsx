@@ -12,6 +12,7 @@ const Carrello = lazy(() => import('./pages/Carrello'));
 const Ordine = lazy(() => import('./pages/Ordine'));
 const Poke2 = lazy(() => import('./pages/stepper-poke/Poke-pro'));
 const poke_con = lazy(() => import('./pages/stepper-poke/Poke-con'));
+const poke_salse = lazy(() => import('./pages/stepper-poke/poke_salse'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -58,6 +59,10 @@ export const router = createBrowserRouter(
           path: 'poke_con',
           element: withSuspense(poke_con),
         },
+        {
+          path: 'poke_salse',
+          element: withSuspense(poke_salse),
+        }
       ],
     },
   ],

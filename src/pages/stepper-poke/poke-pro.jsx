@@ -70,10 +70,18 @@ const steps = [
 
 export default function Poke2() {
   const { initialize, type, selections, updateSelection, pricing, setPricing } = useConfigurator();
-  const [selectedProteins, setSelectedProteins] = useState(selections.proteins || []);
+  const [selectedProteins, setSelectedProteins] = useState(selections?.proteins || []);
+
   const navigate = useNavigate();
 
-  const basePrice = Number(pricing || 12.5);
+  // IMPORTANT: il “basePrice” deve essere un prezzo di size (Small/Regular/Large) + base.
+  // Se `pricing` arriva corrotto/asincrono (es. da localStorage), il totale esplode.
+  // Qui lo forziamo a un numero valido e fallback solo se non è finito.
+// DOPO (legge il prezzo base dalle selections, non dal pricing aggiornato)
+const basePrice = Number.isFinite(Number(selections?.basePrice))
+  ? Number(selections.basePrice)
+  : 12.5;
+
   const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
     const protein = proteinOptions.find((option) => option.id === proteinId);
     return sum + (protein?.price || 0);
@@ -88,10 +96,11 @@ export default function Poke2() {
     }
   }, [type, initialize]);
 
-  useEffect(() => {
-    updateSelection('proteins', selectedProteins);
-    setPricing(currentPrice);
-  }, [currentPrice, selectedProteins, setPricing, updateSelection]);
+// DOPO
+useEffect(() => {
+  updateSelection('proteins', selectedProteins);
+  setPricing(currentPrice);
+}, [selectedProteins]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSelectProtein = (id) => {
     setSelectedProteins((previous) => {

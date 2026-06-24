@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import BottomActionBar from '../../components/BottomActionBar';
-import styles from './Salse.module.css';
+import styles from './poke_salse.module.css';
 
 import baseIcon from '../../Assets/Base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
@@ -12,7 +12,7 @@ import salseIcon from '../../Assets/salse.svg';
 
 import soiaImg from '../../Assets/salsa_soia.png';
 import teriyakiImg from '../../Assets/teriyaki.png';
-import spicyImg from '../../Assets/spicy_mayo.png';
+import spicyImg from '../../Assets/spicy_maio.png';
 import ponzuImg from '../../Assets/ponzu.png';
 import yogurtImg from '../../Assets/yogurt.png';
 

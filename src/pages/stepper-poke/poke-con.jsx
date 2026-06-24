@@ -39,14 +39,15 @@ const INGREDIENTS_DATA = [
 ];
 
 export default function PokeConfigurator() {
-  const { type, initialize, selection, updateSelection } = useConfigurator();
+  const { type, initialize, selections, updateSelection } = useConfigurator();
   const navigate = useNavigate();
 
   // Recupera i dati salvati dallo step precedente (o usa fallback)
-  const selectedSize = selection?.size || 'Regular';
-  const selectedBase = selection?.base || 'Riso venere';
+  const selectedSize = selections?.size || 'Regular';
+  const selectedBase = selections?.base || 'Riso venere';
 
-  const [selectedIngredients, setSelectedIngredients] = useState(selection?.condimenti || []);
+  const [selectedIngredients, setSelectedIngredients] = useState(selections?.condimenti || []);
+
 
   const hasProteine = true;
   const hasSalse = false;
@@ -165,7 +166,7 @@ export default function PokeConfigurator() {
             <button
               className={styles.continueButton}
               type="button"
-              onClick={() => navigate('/poke4')}
+              onClick={() => navigate('/poke_salse')}
             >
               Continua
             </button>
