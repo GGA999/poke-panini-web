@@ -48,7 +48,6 @@ export default function PokeConfigurator() {
 
   const [selectedIngredients, setSelectedIngredients] = useState(selections?.condimenti || []);
 
-
   const hasProteine = true;
   const hasSalse = false;
 

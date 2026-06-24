@@ -27,7 +27,8 @@ export function ConfiguratorProvider({ children }) {
     if (!parsed || typeof parsed !== 'object') return;
 
     if (parsed.type) setType(parsed.type);
-    if (parsed.selections && typeof parsed.selections === 'object') setSelections(parsed.selections);
+    if (parsed.selections && typeof parsed.selections === 'object')
+      setSelections(parsed.selections);
     if (typeof parsed.currentStep === 'number') setCurrentStep(parsed.currentStep);
     if (parsed.pricing !== undefined) setPricing(parsed.pricing);
   }, []);
@@ -100,15 +101,7 @@ export function ConfiguratorProvider({ children }) {
       setPricing,
       reset,
     }),
-    [
-      type,
-      selections,
-      currentStep,
-      pricing,
-      initialize,
-      updateSelection,
-      reset,
-    ]
+    [type, selections, currentStep, pricing, initialize, updateSelection, reset]
   );
 
   return <ConfiguratorContext.Provider value={value}>{children}</ConfiguratorContext.Provider>;
@@ -121,5 +114,3 @@ export function useConfigurator() {
   }
   return context;
 }
-
-
