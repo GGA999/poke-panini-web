@@ -27,7 +27,8 @@ export function ConfiguratorProvider({ children }) {
     if (!parsed || typeof parsed !== 'object') return;
 
     if (parsed.type) setType(parsed.type);
-    if (parsed.selections && typeof parsed.selections === 'object') setSelections(parsed.selections);
+    if (parsed.selections && typeof parsed.selections === 'object')
+      setSelections(parsed.selections);
     if (typeof parsed.currentStep === 'number') setCurrentStep(parsed.currentStep);
     if (parsed.pricing !== undefined) setPricing(parsed.pricing);
   }, []);
@@ -88,6 +89,20 @@ export function ConfiguratorProvider({ children }) {
     window.localStorage.removeItem(STORAGE_KEY);
   }, []);
 
+  // Dentro ConfiguratorProvider, prima del useMemo
+  const getLimits = useCallback((size) => {
+    switch (size) {
+      case 'Small':
+        return { proteine: 1, condimenti: 2, salse: 1 };
+      case 'Large':
+        return { proteine: 3, condimenti: 6, salse: 3 };
+      default:
+        return { proteine: 2, condimenti: 5, salse: 2 }; // Regular
+    }
+  }, []);
+
+  // PRIMA
+  // DOPO
   const value = useMemo(
     () => ({
       type,
@@ -99,6 +114,7 @@ export function ConfiguratorProvider({ children }) {
       setCurrentStep,
       setPricing,
       reset,
+      getLimits, // ← aggiunto
     }),
     [
       type,
@@ -108,6 +124,7 @@ export function ConfiguratorProvider({ children }) {
       initialize,
       updateSelection,
       reset,
+      getLimits, // ← aggiunto
     ]
   );
 
@@ -121,5 +138,3 @@ export function useConfigurator() {
   }
   return context;
 }
-
-

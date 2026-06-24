@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
@@ -8,7 +8,7 @@ import Alert from '../../components/Alert';
 import styles from './Poke-con.module.css';
 
 // Icone del Menu Laterale
-import baseIcon from '../../Assets/Base.svg';
+import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
 import condimentiIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';
@@ -39,7 +39,9 @@ const INGREDIENTS_DATA = [
 ];
 
 export default function PokeConfigurator() {
-  const { type, initialize, selections, updateSelection } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
+
+  const limits = getLimits(selections?.size);
   const navigate = useNavigate();
 
   // Recupera i dati salvati dallo step precedente (o usa fallback)
@@ -47,7 +49,6 @@ export default function PokeConfigurator() {
   const selectedBase = selections?.base || 'Riso venere';
 
   const [selectedIngredients, setSelectedIngredients] = useState(selections?.condimenti || []);
-
 
   const hasProteine = true;
   const hasSalse = false;
@@ -69,7 +70,12 @@ export default function PokeConfigurator() {
     { id: 'salse', label: 'Salse', icon: salseIcon, disabled: !hasSalse },
   ];
 
-  const currentPrice = selectedSize === 'Small' ? 9.5 : selectedSize === 'Large' ? 15.5 : 12.5;
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  const proteinsExtra = (selections?.proteins || []).reduce((sum, id) => {
+    const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 }; // solo quelli a pagamento
+    return sum + (prices[id] || 0);
+  }, 0);
+  const currentPrice = basePrice + proteinsExtra;
 
   useEffect(() => {
     if (type !== 'poke') {
@@ -88,11 +94,11 @@ export default function PokeConfigurator() {
       return;
     }
 
-    if (selectedIngredients.length >= 5) {
+    if (selectedIngredients.length >= limits.condimenti) {
       setAlert({
         variant: 'warning',
         title: 'Limite ingredienti raggiunto',
-        description: 'Puoi selezionare un massimo di 5 ingredienti',
+        description: `Puoi selezionare un massimo di ${limits.condimenti} ingredienti`,
       });
       return;
     }

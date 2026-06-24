@@ -62,7 +62,7 @@ export const router = createBrowserRouter(
         {
           path: 'poke_salse',
           element: withSuspense(poke_salse),
-        }
+        },
       ],
     },
   ],

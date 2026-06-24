@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import BottomActionBar from '../../components/BottomActionBar';
+import Alert from '../../components/Alert';
 import styles from './poke_salse.module.css';
 
-import baseIcon from '../../Assets/Base.svg';
+import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
 import condimentiIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';
@@ -43,22 +44,26 @@ const SAUCES_DATA = [
 ];
 
 export default function Salse() {
-  const { type, initialize, selection, updateSelection } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
   const navigate = useNavigate();
 
-  const [selectedSalse, setSelectedSalse] = useState(selection?.salse || []);
+  const [selectedSalse, setSelectedSalse] = useState(selections?.salse || []);
+  const [alert, setAlert] = useState(null);
 
-  const selectedSize = selection?.size || 'Regular';
-  const selectedBase = selection?.base || 'Riso venere';
+  const limits = getLimits(selections?.size);
+  const selectedSize = selections?.size || 'Regular';
+  const selectedBase = selections?.base || 'Riso venere';
 
-  const basePrice = selectedSize === 'Small' ? 9.5 : selectedSize === 'Large' ? 15.5 : 12.5;
-
-  const extraPrice = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id)).reduce(
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  const proteinsExtra = (selections?.proteins || []).reduce((sum, id) => {
+    const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 };
+    return sum + (prices[id] || 0);
+  }, 0);
+  const saucesExtra = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id)).reduce(
     (a, b) => a + b.price,
     0
   );
-
-  const totalPrice = basePrice + extraPrice;
+  const totalPrice = basePrice + proteinsExtra + saucesExtra;
 
   useEffect(() => {
     if (type !== 'poke') {
@@ -70,17 +75,28 @@ export default function Salse() {
     updateSelection('salse', selectedSalse);
   }, [selectedSalse, updateSelection]);
 
+  useEffect(() => {
+    if (!alert) return;
+    const timer = window.setTimeout(() => setAlert(null), 3000);
+    return () => window.clearTimeout(timer);
+  }, [alert]);
+
   const toggleSalsa = (id) => {
     if (selectedSalse.includes(id)) {
       setSelectedSalse(selectedSalse.filter((s) => s !== id));
       return;
     }
 
-    const limit = selectedSize === 'Small' ? 1 : selectedSize === 'Large' ? 3 : 2;
-
-    if (selectedSalse.length < limit) {
+    if (selectedSalse.length < limits.salse) {
       setSelectedSalse([...selectedSalse, id]);
+      return;
     }
+
+    setAlert({
+      variant: 'warning',
+      title: 'Limite salse raggiunto',
+      description: `Puoi selezionare un massimo di ${limits.salse} salse`,
+    });
   };
 
   const steps = [
@@ -112,6 +128,16 @@ export default function Salse() {
 
   return (
     <div className={styles.pokePageContainer}>
+      {alert ? (
+        <Alert
+          variant={alert.variant}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => setAlert(null)}
+          className={styles.alert}
+        />
+      ) : null}
+
       <div className={styles.shell}>
         <ConfiguratorSideMenu activeId="salse" items={steps} />
 
