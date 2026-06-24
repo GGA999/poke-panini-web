@@ -124,7 +124,7 @@
 .mix-card--panino {
   background:
     linear-gradient(to top, rgba(160, 65, 0, 0.92) 0%, rgba(160, 65, 0, 0.55) 100%),
-    url('../../Assets/Pane.svg') center / cover no-repeat;
+    url('../../Assets/pane.svg') center / cover no-repeat;
 }
 
 /* Contenuto interno */

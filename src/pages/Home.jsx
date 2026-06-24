@@ -1,39 +1,54 @@
+import { useQuery } from '@tanstack/react-query';
 import styles from './Home.module.css';
 import MixCard from '../components/MixCard';
 import ProductCard from '../components/ProductCard';
-import poke2Image from '../Assets/Poke2.svg';
 import tartufoImage from '../Assets/tartufo.svg';
-import poke3Image from '../Assets/poke3.svg';
+import paneImage from '../Assets/Pane.jpg';
+import paneIcon from '../Assets/pane.svg';
+import { getRecommendedSandwiches } from '../api/brandRecipes';
 
-const recommendedProducts = [
-  {
-    id: 1,
-    title: 'Sunset Salmon Poke',
-    price: '\u20ac12.50',
-    description: 'Riso bianco, Salmone fresco, Avocado, Edamame, Alga Nori, Salsa Ponzu.',
-    tags: ['BEST SELLER', 'HEALTHY'],
-    image: poke2Image,
-  },
-  {
-    id: 2,
-    title: 'Tartufo Gourmet',
-    price: '\u20ac9.00',
-    description:
-      'Ciabatta croccante, Roast Beef, Provolone dolce, Cipolle caramellate, Crema al Tartufo.',
-    tags: ['PREMIUM'],
-    image: tartufoImage,
-  },
-  {
-    id: 3,
-    title: 'Spicy Tuna Bowl',
-    price: '\u20ac13.00',
-    description: 'Quinoa, Tonno piccante, Jalapeno, Mango, Cipolla croccante, Mayo Sriracha.',
-    tags: ['NEW ENTRY', 'SPICY'],
-    image: poke3Image,
-  },
-];
+const fallbackImages = [tartufoImage, paneImage, paneIcon];
+
+function formatPrice(cents, currency = 'EUR') {
+  return new Intl.NumberFormat('it-IT', {
+    style: 'currency',
+    currency,
+  }).format(cents / 100);
+}
+
+function recipeToProduct(recipe, index) {
+  const ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients : [];
+  const ingredientSummary = ingredients
+    .map((ingredient) => ingredient.name)
+    .filter(Boolean)
+    .join(', ');
+  const totalCents = recipe.price?.totalCents ?? recipe.defaultSize?.basePriceCents ?? 0;
+  const currency = recipe.price?.currency ?? recipe.defaultSize?.currency ?? 'EUR';
+
+  return {
+    id: recipe.id,
+    title: recipe.name,
+    price: formatPrice(totalCents, currency),
+    description: recipe.description || ingredientSummary || 'Panino artigianale consigliato.',
+    tags: ['PANINO', recipe.isCustomizable ? 'CUSTOM' : 'CHEF'],
+    image: recipe.imageUrl || fallbackImages[index % fallbackImages.length],
+  };
+}
 
 export default function Home() {
+  const {
+    data: recommendedSandwiches = [],
+    error,
+    isError,
+    isFetching,
+    isLoading,
+  } = useQuery({
+    queryKey: ['recommended-sandwiches'],
+    queryFn: ({ signal }) => getRecommendedSandwiches({ signal }),
+    retry: 1,
+  });
+  const recommendedProducts = recommendedSandwiches.map(recipeToProduct);
+
   return (
     <div className={styles.appContainer}>
       <header className={styles.heroHeader}>
@@ -68,15 +83,35 @@ export default function Home() {
         <div className={styles.recommendedHeader}>
           <div>
             <span className={styles.subtitle}>I NOSTRI PREFERITI</span>
-            <h2>Consigliati</h2>
+            <h2>Panini consigliati</h2>
           </div>
         </div>
 
-        <div className={styles.productGrid}>
-          {recommendedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className={styles.statusMessage} aria-live="polite">
+            Caricamento panini consigliati...
+          </div>
+        ) : null}
+
+        {isError ? (
+          <div className={styles.statusMessage} role="alert">
+            {error?.message || 'Impossibile caricare i panini consigliati.'}
+          </div>
+        ) : null}
+
+        {!isLoading && !isError && recommendedProducts.length === 0 ? (
+          <div className={styles.statusMessage} aria-live="polite">
+            Nessun panino consigliato disponibile.
+          </div>
+        ) : null}
+
+        {!isLoading && !isError && recommendedProducts.length > 0 ? (
+          <div className={styles.productGrid} aria-busy={isFetching}>
+            {recommendedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : null}
       </section>
     </div>
   );
