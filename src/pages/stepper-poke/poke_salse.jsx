@@ -44,7 +44,8 @@ const SAUCES_DATA = [
 ];
 
 export default function Salse() {
-  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits, setPricing } =
+    useConfigurator();
   const navigate = useNavigate();
 
   const [selectedSalse, setSelectedSalse] = useState(selections?.salse || []);
@@ -73,7 +74,8 @@ export default function Salse() {
 
   useEffect(() => {
     updateSelection('salse', selectedSalse);
-  }, [selectedSalse, updateSelection]);
+    setPricing(totalPrice);
+  }, [selectedSalse, totalPrice, updateSelection, setPricing]);
 
   useEffect(() => {
     if (!alert) return;
@@ -198,7 +200,22 @@ export default function Salse() {
               <span>Selezionato</span>
             </div>
 
-            <button className={styles.continueButton} onClick={() => navigate('/riepilogo')}>
+            <button
+              className={styles.continueButton}
+              type="button"
+              onClick={() => {
+                if (selectedSalse.length < 1) {
+                  setAlert({
+                    variant: 'warning',
+                    title: 'Aggiungi almeno una salsa',
+                    description: 'Devi selezionare almeno una salsa per continuare.',
+                  });
+                  return;
+                }
+
+                navigate('/poke_fine');
+              }}
+            >
               Continua
             </button>
           </>

@@ -127,7 +127,8 @@ export default function PokeConfigurator() {
             <p className={styles.stepIndicator}>STEP 3 DI 4</p>
             <h1 className={styles.configuratorTitle}>Personalizza con Verdure e Topping</h1>
             <p className={styles.configuratorSubtitle}>
-              Scegli fino a 5 ingredienti per rendere il tuo Poke unico e croccante.
+              Scegli da 1 a {limits.condimenti} ingredienti per rendere il tuo Poke unico e
+              croccante.
             </p>
           </header>
 
@@ -172,7 +173,18 @@ export default function PokeConfigurator() {
             <button
               className={styles.continueButton}
               type="button"
-              onClick={() => navigate('/poke_salse')}
+              onClick={() => {
+                if (selectedIngredients.length < 1) {
+                  setAlert({
+                    variant: 'warning',
+                    title: 'Aggiungi almeno un condimento',
+                    description: 'Devi selezionare almeno un condimento per continuare.',
+                  });
+                  return;
+                }
+
+                navigate('/poke_salse');
+              }}
             >
               Continua
             </button>
