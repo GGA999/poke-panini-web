@@ -13,6 +13,7 @@
   flex: 1;
   max-width: 940px;
   padding: 40px clamp(20px, 5vw, 60px);
+  margin: 0 auto;
 }
 
 .stepIndicator {
@@ -56,8 +57,9 @@
 .sectionTitle h2 {
   font-family: var(--font-display);
   font-size: 18px;
-  line-height: 1.25;
+  line-height: 32px;
   margin: 0;
+  font-weight:600px;
 }
 
 .stepNumber {
@@ -69,9 +71,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight:600;
+  line-height: 20;
   flex: 0 0 auto;
+  font-family: var(--font-display);
 }
 
 .sizeGrid {
