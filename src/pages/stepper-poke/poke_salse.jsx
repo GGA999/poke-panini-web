@@ -44,7 +44,8 @@ const SAUCES_DATA = [
 ];
 
 export default function Salse() {
-  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits, setPricing } =
+    useConfigurator();
   const navigate = useNavigate();
 
   const [selectedSalse, setSelectedSalse] = useState(selections?.salse || []);
@@ -73,7 +74,8 @@ export default function Salse() {
 
   useEffect(() => {
     updateSelection('salse', selectedSalse);
-  }, [selectedSalse, updateSelection]);
+    setPricing(totalPrice);
+  }, [selectedSalse, totalPrice, updateSelection, setPricing]);
 
   useEffect(() => {
     if (!alert) return;
@@ -198,7 +200,7 @@ export default function Salse() {
               <span>Selezionato</span>
             </div>
 
-            <button className={styles.continueButton} onClick={() => navigate('/riepilogo')}>
+            <button className={styles.continueButton} onClick={() => navigate('/poke_fine')}>
               Continua
             </button>
           </>

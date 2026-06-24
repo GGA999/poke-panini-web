@@ -19,6 +19,9 @@ export default function Header() {
         {/* Destra: menu ordini + carrello */}
         <div className={styles.navRight}>
           <nav className={styles.navRightMenu}>
+            <Link to="/poke">Configuratore</Link>
+          </nav>
+          <nav className={styles.navRightMenu}>
             <Link to="/Ordini">Ordini</Link>
           </nav>
           <nav className={styles.navRightMenu}>
