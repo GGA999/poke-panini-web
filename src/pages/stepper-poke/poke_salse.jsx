@@ -43,22 +43,23 @@ const SAUCES_DATA = [
 ];
 
 export default function Salse() {
-  const { type, initialize, selection, updateSelection } = useConfigurator();
+  const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
   const navigate = useNavigate();
 
   const [selectedSalse, setSelectedSalse] = useState(selection?.salse || []);
 
-  const selectedSize = selection?.size || 'Regular';
-  const selectedBase = selection?.base || 'Riso venere';
+  const limits = getLimits(selections?.size);
+  const selectedSize = selections?.size || 'Regular';
+  const selectedBase = selections?.base || 'Riso venere';
 
-  const basePrice = selectedSize === 'Small' ? 9.5 : selectedSize === 'Large' ? 15.5 : 12.5;
-
-  const extraPrice = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id)).reduce(
-    (a, b) => a + b.price,
-    0
-  );
-
-  const totalPrice = basePrice + extraPrice;
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  const proteinsExtra = (selections?.proteins || []).reduce((sum, id) => {
+    const prices = { salmone: 1.5, tonno: 2, gamberi: 1.8 };
+    return sum + (prices[id] || 0);
+  }, 0);
+  const saucesExtra = SAUCES_DATA.filter((s) => selectedSalse.includes(s.id))
+    .reduce((a, b) => a + b.price, 0);
+  const totalPrice = basePrice + proteinsExtra + saucesExtra;
 
   useEffect(() => {
     if (type !== 'poke') {
@@ -76,9 +77,7 @@ export default function Salse() {
       return;
     }
 
-    const limit = selectedSize === 'Small' ? 1 : selectedSize === 'Large' ? 3 : 2;
-
-    if (selectedSalse.length < limit) {
+    if (selectedSalse.length < limits.salse) {
       setSelectedSalse([...selectedSalse, id]);
     }
   };

@@ -69,8 +69,9 @@ const steps = [
 ];
 
 export default function Poke2() {
-  const { initialize, type, selections, updateSelection, pricing, setPricing } = useConfigurator();
+  const { initialize, type, selections, updateSelection, getLimits, setPricing } = useConfigurator();
   const [selectedProteins, setSelectedProteins] = useState(selections?.proteins || []);
+  
 
   const navigate = useNavigate();
 
@@ -78,15 +79,14 @@ export default function Poke2() {
   // Se `pricing` arriva corrotto/asincrono (es. da localStorage), il totale esplode.
   // Qui lo forziamo a un numero valido e fallback solo se non è finito.
   // DOPO (legge il prezzo base dalle selections, non dal pricing aggiornato)
-  const basePrice = Number.isFinite(Number(selections?.basePrice))
-    ? Number(selections.basePrice)
-    : 12.5;
+const basePrice = Number(selections?.basePrice) || 12.5;
+const limits = getLimits(selections?.size);
 
-  const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
-    const protein = proteinOptions.find((option) => option.id === proteinId);
-    return sum + (protein?.price || 0);
-  }, 0);
-  const currentPrice = basePrice + proteinsTotal;
+const proteinsTotal = selectedProteins.reduce((sum, id) => {
+  const p = proteinOptions.find((o) => o.id === id);
+  return sum + (p?.price || 0);
+}, 0);
+const currentPrice = basePrice + proteinsTotal;
   const sizeLabel = selections.size || 'Regular';
   const baseLabel = selections.base || 'Riso venere';
 
@@ -97,10 +97,10 @@ export default function Poke2() {
   }, [type, initialize]);
 
   // DOPO
-  useEffect(() => {
-    updateSelection('proteins', selectedProteins);
-    setPricing(currentPrice);
-  }, [selectedProteins]); // eslint-disable-line react-hooks/exhaustive-deps
+useEffect(() => {
+  updateSelection('proteins', selectedProteins);
+  setPricing(currentPrice);
+}, [selectedProteins]);
 
   const handleSelectProtein = (id) => {
     setSelectedProteins((previous) => {
@@ -108,9 +108,7 @@ export default function Poke2() {
         return previous.filter((item) => item !== id);
       }
 
-      if (previous.length >= 2) {
-        return previous;
-      }
+if (previous.length >= limits.proteine) return previous;
 
       return [...previous, id];
     });
@@ -166,7 +164,7 @@ export default function Poke2() {
               <strong>
                 {sizeLabel} + {baseLabel}
               </strong>
-              <span>{selectedProteins.length}/2 proteine selezionate</span>
+              <span>{selectedProteins.length}/{limits.proteine} proteine selezionate</span>
             </div>
             <button
               className={styles.continueButton}

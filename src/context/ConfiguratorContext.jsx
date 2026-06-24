@@ -89,20 +89,41 @@ export function ConfiguratorProvider({ children }) {
     window.localStorage.removeItem(STORAGE_KEY);
   }, []);
 
-  const value = useMemo(
-    () => ({
-      type,
-      selections,
-      currentStep,
-      pricing,
-      initialize,
-      updateSelection,
-      setCurrentStep,
-      setPricing,
-      reset,
-    }),
-    [type, selections, currentStep, pricing, initialize, updateSelection, reset]
-  );
+  // Dentro ConfiguratorProvider, prima del useMemo
+const getLimits = useCallback((size) => {
+  switch (size) {
+    case 'Small':  return { proteine: 1, condimenti: 2, salse: 1 };
+    case 'Large':  return { proteine: 3, condimenti: 6, salse: 3 };
+    default:       return { proteine: 2, condimenti: 5, salse: 2 }; // Regular
+  }
+}, []);
+
+// PRIMA
+// DOPO
+const value = useMemo(
+  () => ({
+    type,
+    selections,
+    currentStep,
+    pricing,
+    initialize,
+    updateSelection,
+    setCurrentStep,
+    setPricing,
+    reset,
+    getLimits,       // ← aggiunto
+  }),
+  [
+    type,
+    selections,
+    currentStep,
+    pricing,
+    initialize,
+    updateSelection,
+    reset,
+    getLimits,       // ← aggiunto
+  ]
+);
 
   return <ConfiguratorContext.Provider value={value}>{children}</ConfiguratorContext.Provider>;
 }
