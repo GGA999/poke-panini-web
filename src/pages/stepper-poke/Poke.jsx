@@ -147,7 +147,9 @@ export default function Poke() {
 
                     {/* Contenitore Flexbox con Icona a sinistra e Prezzo a destra */}
                     <span className={styles.cardHeader}>
-                      <span className={`${styles.cardIcon} ${isSelected ? styles.iconYellow : styles.iconBlue}`}>
+                      <span
+                        className={`${styles.cardIcon} ${isSelected ? styles.iconYellow : styles.iconBlue}`}
+                      >
                         <img src={cartIcon} alt="" aria-hidden="true" />
                       </span>
                       <span className={styles.price}>€{size.price.toFixed(2)}</span>
