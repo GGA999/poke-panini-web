@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import BottomActionBar from '../components/BottomActionBar';
-import ConfiguratorOptionCard from '../components/ConfiguratorOptionCard';
-import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
-import { useConfigurator } from '../context/ConfiguratorContext';
-import styles from './poke2.module.css';
-import baseIcon from '../Assets/base.svg';
-import proteineIcon from '../Assets/proteine.svg';
-import condimentiIcon from '../Assets/condimenti.svg';
-import salseIcon from '../Assets/salse.svg';
-import salmone from '../Assets/salmone.png';
-import gamberi from '../Assets/gambiere.png';
-import pollo from '../Assets/pollo.png';
-import tofu from '../Assets/tofu.png';
-import tonno from '../Assets/tonno.png';
-import uovo from '../Assets/uovo.png';
+import { useNavigate } from 'react-router-dom';
+import BottomActionBar from '../../components/BottomActionBar';
+import ConfiguratorOptionCard from '../../components/ConfiguratorOptionCard';
+import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
+import { useConfigurator } from '../../context/ConfiguratorContext';
+import styles from './poke-pro.module.css';
+import baseIcon from '../../Assets/base.svg';
+import proteineIcon from '../../Assets/proteine.svg';
+import condimentiIcon from '../../Assets/condimenti.svg';
+import salseIcon from '../../Assets/salse.svg';
+import salmone from '../../Assets/salmone.png';
+import gamberi from '../../Assets/gambiere.png';
+import pollo from '../../Assets/pollo.png';
+import tofu from '../../Assets/tofu.png';
+import tonno from '../../Assets/tonno.png';
+import uovo from '../../Assets/uovo.png';
 
 const proteinOptions = [
   {
@@ -69,9 +70,18 @@ const steps = [
 
 export default function Poke2() {
   const { initialize, type, selections, updateSelection, pricing, setPricing } = useConfigurator();
-  const [selectedProteins, setSelectedProteins] = useState(selections.proteins || []);
+  const [selectedProteins, setSelectedProteins] = useState(selections?.proteins || []);
 
-  const basePrice = Number(pricing || 12.5);
+  const navigate = useNavigate();
+
+  // IMPORTANT: il “basePrice” deve essere un prezzo di size (Small/Regular/Large) + base.
+  // Se `pricing` arriva corrotto/asincrono (es. da localStorage), il totale esplode.
+  // Qui lo forziamo a un numero valido e fallback solo se non è finito.
+// DOPO (legge il prezzo base dalle selections, non dal pricing aggiornato)
+const basePrice = Number.isFinite(Number(selections?.basePrice))
+  ? Number(selections.basePrice)
+  : 12.5;
+
   const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
     const protein = proteinOptions.find((option) => option.id === proteinId);
     return sum + (protein?.price || 0);
@@ -86,10 +96,11 @@ export default function Poke2() {
     }
   }, [type, initialize]);
 
-  useEffect(() => {
-    updateSelection('proteins', selectedProteins);
-    setPricing(currentPrice);
-  }, [currentPrice, selectedProteins, setPricing, updateSelection]);
+// DOPO
+useEffect(() => {
+  updateSelection('proteins', selectedProteins);
+  setPricing(currentPrice);
+}, [selectedProteins]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSelectProtein = (id) => {
     setSelectedProteins((previous) => {
@@ -157,7 +168,11 @@ export default function Poke2() {
               </strong>
               <span>{selectedProteins.length}/2 proteine selezionate</span>
             </div>
-            <button className={styles.continueButton} type="button">
+            <button
+              className={styles.continueButton}
+              type="button"
+              onClick={() => navigate('/poke_con')}
+            >
               Continua
             </button>
           </>

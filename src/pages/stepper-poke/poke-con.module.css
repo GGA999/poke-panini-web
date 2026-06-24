@@ -1,0 +1,127 @@
+.shell {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.pokePageContainer {
+  background-color: var(--bg-main);
+  padding-bottom: 112px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px); /* Regola in base all'altezza dell'header globale */
+}
+
+.stepIndicator {
+  color: #2e5927;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.contentHeader h1 {
+  color: var(--text-dark);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+.contentHeader p:not(.stepIndicator) {
+  color: var(--text-gray);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pokeMainContent {
+  flex: 1;
+  padding: 40px 60px;
+  background-color: var(--bg-main);
+}
+
+/* Griglia per disporre le card in modo responsivo */
+.ingredientsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.ingredientCard {
+  background: #ffffff;
+  border: 2px solid #eef0f2;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ingredientCard.selected {
+  border-color: #ff6600; /* Arancione Poke */
+  background-color: #fffaf7;
+}
+
+.ingredientImageWrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.ingredientImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.continueButton {
+  background-color: #ff6f00;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 36px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.continueButton:hover {
+  background-color: #e66400;
+}
+
+.totalBox span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.totalBox strong {
+  color: var(--color-orange);
+  font-size: 22px;
+}
+
+.selectionSummary {
+  color: #2e5927;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.selectionSummary span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 2px;
+}

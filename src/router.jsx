@@ -5,12 +5,14 @@ import NotFound from './pages/NotFound';
 import Loading from './components/Loading';
 
 const Home = lazy(() => import('./pages/Home'));
-const Poke = lazy(() => import('./pages/Poke'));
+const Poke = lazy(() => import('./pages/stepper-poke/Poke'));
 const Panino = lazy(() => import('./pages/Panino'));
 const Ricette = lazy(() => import('./pages/Ricette'));
 const Carrello = lazy(() => import('./pages/Carrello'));
 const Ordine = lazy(() => import('./pages/Ordine'));
-const Poke2 = lazy(() => import('./pages/poke2'));
+const Poke2 = lazy(() => import('./pages/stepper-poke/Poke-pro'));
+const poke_con = lazy(() => import('./pages/stepper-poke/Poke-con'));
+const poke_salse = lazy(() => import('./pages/stepper-poke/poke_salse'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -54,9 +56,13 @@ export const router = createBrowserRouter(
           element: withSuspense(Poke2),
         },
         {
-          path: '*',
-          element: <NotFound />,
+          path: 'poke_con',
+          element: withSuspense(poke_con),
         },
+        {
+          path: 'poke_salse',
+          element: withSuspense(poke_salse),
+        }
       ],
     },
   ],

@@ -16,8 +16,8 @@ export default function ConfiguratorSideMenu({
     const map = {
       base: '/poke',
       proteine: '/poke2',
-      condimenti: '/poke2',
-      salse: '/poke2',
+      condimenti: '/poke_con',
+      salse: '/poke_salse',
     };
 
     return map[item.id];
