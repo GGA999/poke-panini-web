@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
@@ -8,7 +8,7 @@ import Alert from '../../components/Alert';
 import styles from './Poke-con.module.css';
 
 // Icone del Menu Laterale
-import baseIcon from '../../Assets/Base.svg';
+import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
 import condimentiIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';

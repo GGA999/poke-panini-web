@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import BottomActionBar from '../../components/BottomActionBar';
 import styles from './poke_salse.module.css';
 
-import baseIcon from '../../Assets/Base.svg';
+import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
 import condimentiIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';
@@ -46,7 +46,7 @@ export default function Salse() {
   const { type, initialize, selections, updateSelection, getLimits } = useConfigurator();
   const navigate = useNavigate();
 
-  const [selectedSalse, setSelectedSalse] = useState(selection?.salse || []);
+  const [selectedSalse, setSelectedSalse] = useState(selections?.salse || []);
 
   const limits = getLimits(selections?.size);
   const selectedSize = selections?.size || 'Regular';
