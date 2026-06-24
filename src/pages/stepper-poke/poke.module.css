@@ -85,12 +85,14 @@
   background: var(--bg-white);
   border: 2px solid transparent;
   border-radius: var(--radius-lg);
-  padding: 24px 20px;
+  padding: 24px;
   cursor: pointer;
   position: relative;
   box-shadow: var(--shadow-sm);
   text-align: left;
   display: grid;
+  height: 168.5px;
+  width: 266.67px;
   gap: 6px;
   transition:
     border-color var(--transition-fast),
@@ -155,8 +157,9 @@
 
 .cardDescription {
   color: var(--text-gray);
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: var(--font-body)
 }
 
 .baseGrid {
