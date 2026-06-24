@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BottomActionBar from '../../components/BottomActionBar';
 import ConfiguratorOptionCard from '../../components/ConfiguratorOptionCard';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
@@ -70,6 +71,7 @@ const steps = [
 export default function Poke2() {
   const { initialize, type, selections, updateSelection, pricing, setPricing } = useConfigurator();
   const [selectedProteins, setSelectedProteins] = useState(selections.proteins || []);
+  const navigate = useNavigate();
 
   const basePrice = Number(pricing || 12.5);
   const proteinsTotal = selectedProteins.reduce((sum, proteinId) => {
@@ -157,7 +159,11 @@ export default function Poke2() {
               </strong>
               <span>{selectedProteins.length}/2 proteine selezionate</span>
             </div>
-            <button className={styles.continueButton} type="button">
+            <button
+              className={styles.continueButton}
+              type="button"
+              onClick={() => navigate('/poke_con')}
+            >
               Continua
             </button>
           </>
