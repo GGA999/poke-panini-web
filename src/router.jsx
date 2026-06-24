@@ -55,12 +55,8 @@ export const router = createBrowserRouter(
           element: withSuspense(Poke2),
         },
         {
-          path: 'poke-con',
+          path: 'poke_con',
           element: withSuspense(poke_con),
-        },
-        {
-          path: '*',
-          element: <NotFound />,
         },
       ],
     },

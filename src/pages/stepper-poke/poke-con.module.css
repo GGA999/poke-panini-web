@@ -1,91 +1,62 @@
-/* Container principale della pagina (escluso l'header globale) */
+.shell {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
 .pokePageContainer {
+  background-color: var(--bg-main);
+  padding-bottom: 112px;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 70px);
-  background-color: #f9f9f9;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-/* Corpo centrale che unisce menu laterale e griglia ingredienti */
-.pokeMainContent {
-  display: flex;
-  flex: 1;
-  padding-bottom: 100px; /* Evita che la barra inferiore copra il contenuto */
-}
-
-/* Area dei condimenti a destra del menu laterale */
-.configuratorSection {
-  flex: 1;
-  padding: 40px 60px;
+  min-height: calc(100vh - 80px); /* Regola in base all'altezza dell'header globale */
 }
 
 .stepIndicator {
-  font-size: 12px;
+  color: #2e5927;
+  font-size: 11px;
   font-weight: 700;
-  color: #2b612c;
   letter-spacing: 1px;
-  margin-bottom: 8px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
 }
 
-.configuratorTitle {
-  font-size: 32px;
-  font-weight: 800;
-  color: #1a1a1a;
-  margin: 0 0 8px 0;
-}
+.pokeMainContent {
+  flex: 1;
+  padding: 40px 60px;
+  background-color: var(--bg-main);}
 
-.configuratorSubtitle {
-  font-size: 15px;
-  color: #666666;
-  margin-bottom: 35px;
-}
-
-/* Griglia degli ingredienti responsive */
+/* Griglia per disporre le card in modo responsivo */
 .ingredientsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
-  max-width: 900px;
+  margin-top: 30px;
 }
 
-/* Card del singolo ingrediente */
 .ingredientCard {
   background: #ffffff;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  padding: 20px 15px;
+  border: 2px solid #eef0f2;
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease;
 }
 
-.ingredientCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Stato selezionato (Bordo arancione coerente con l'UI di Poke & Panini) */
-.selected {
-  border-color: #ff6600;
+.ingredientCard.selected {
+  border-color: #ff6600; /* Arancione Poke */
   background-color: #fffaf7;
 }
 
-/* Immagine rotonda dell'ingrediente */
 .ingredientImageWrapper {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0;
+  margin-bottom: 12px;
 }
 
 .ingredientImageWrapper img {
@@ -94,9 +65,46 @@
   object-fit: cover;
 }
 
-.ingredientName {
-  font-size: 14px;
+.continueButton {
+  background-color: #ff6f00;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 36px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
   font-weight: 600;
-  color: #222222;
-  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.continueButton:hover {
+  background-color: #e66400;
+}
+
+.totalBox span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.totalBox strong {
+  color: var(--color-orange);
+  font-size: 22px;
+}
+
+.selectionSummary {
+  color: #2e5927;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.selectionSummary span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 2px;
 }
