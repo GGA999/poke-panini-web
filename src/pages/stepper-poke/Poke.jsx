@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useConfigurator } from '../context/ConfiguratorContext';
-import BottomActionBar from '../components/BottomActionBar';
-import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
+import { useConfigurator } from '../../context/ConfiguratorContext';
+import BottomActionBar from '../../components/BottomActionBar';
+import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
 import styles from './poke.module.css';
-import baseIcon from '../Assets/Base.svg';
-import proteineIcon from '../Assets/proteine.svg';
-import condimentiIcon from '../Assets/condimenti.svg';
-import salseIcon from '../Assets/salse.svg';
-import cartIcon from '../Assets/Cart.svg';
-import cartSel from '../Assets/Cart_sele.svg';
-import insalata from '../Assets/insalata.png';
-import quinoa from '../Assets/quinoa.png';
-import riso_bianco from '../Assets/riso_bianco.png';
-import riso_venere from '../Assets/riso_venere.png';
+import baseIcon from '../../Assets/Base.svg';
+import proteineIcon from '../../Assets/proteine.svg';
+import condimentiIcon from '../../Assets/condimenti.svg';
+import salseIcon from '../../Assets/salse.svg';
+import cartIcon from '../../Assets/Cart.svg';
+import cartSel from '../../Assets/Cart_sele.svg';
+import insalata from '../../Assets/insalata.png';
+import quinoa from '../../Assets/quinoa.png';
+import riso_bianco from '../../Assets/riso_bianco.png';
+import riso_venere from '../../Assets/riso_venere.png';
 
 const sizes = [
   {

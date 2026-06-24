@@ -1,0 +1,102 @@
+/* Container principale della pagina (escluso l'header globale) */
+.pokePageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 70px);
+  background-color: #f9f9f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Corpo centrale che unisce menu laterale e griglia ingredienti */
+.pokeMainContent {
+  display: flex;
+  flex: 1;
+  padding-bottom: 100px; /* Evita che la barra inferiore copra il contenuto */
+}
+
+/* Area dei condimenti a destra del menu laterale */
+.configuratorSection {
+  flex: 1;
+  padding: 40px 60px;
+}
+
+.stepIndicator {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2b612c;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.configuratorTitle {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.configuratorSubtitle {
+  font-size: 15px;
+  color: #666666;
+  margin-bottom: 35px;
+}
+
+/* Griglia degli ingredienti responsive */
+.ingredientsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+}
+
+/* Card del singolo ingrediente */
+.ingredientCard {
+  background: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-in-out;
+}
+
+.ingredientCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Stato selezionato (Bordo arancione coerente con l'UI di Poke & Panini) */
+.selected {
+  border-color: #ff6600;
+  background-color: #fffaf7;
+}
+
+/* Immagine rotonda dell'ingrediente */
+.ingredientImageWrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.ingredientImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ingredientName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222222;
+  text-align: center;
+}

@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import BottomActionBar from '../components/BottomActionBar';
-import ConfiguratorOptionCard from '../components/ConfiguratorOptionCard';
-import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
-import { useConfigurator } from '../context/ConfiguratorContext';
-import styles from './poke2.module.css';
-import baseIcon from '../Assets/base.svg';
-import proteineIcon from '../Assets/proteine.svg';
-import condimentiIcon from '../Assets/condimenti.svg';
-import salseIcon from '../Assets/salse.svg';
-import salmone from '../Assets/salmone.png';
-import gamberi from '../Assets/gambiere.png';
-import pollo from '../Assets/pollo.png';
-import tofu from '../Assets/tofu.png';
-import tonno from '../Assets/tonno.png';
-import uovo from '../Assets/uovo.png';
+import BottomActionBar from '../../components/BottomActionBar';
+import ConfiguratorOptionCard from '../../components/ConfiguratorOptionCard';
+import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
+import { useConfigurator } from '../../context/ConfiguratorContext';
+import styles from './poke-pro.module.css';
+import baseIcon from '../../Assets/base.svg';
+import proteineIcon from '../../Assets/proteine.svg';
+import condimentiIcon from '../../Assets/condimenti.svg';
+import salseIcon from '../../Assets/salse.svg';
+import salmone from '../../Assets/salmone.png';
+import gamberi from '../../Assets/gambiere.png';
+import pollo from '../../Assets/pollo.png';
+import tofu from '../../Assets/tofu.png';
+import tonno from '../../Assets/tonno.png';
+import uovo from '../../Assets/uovo.png';
 
 const proteinOptions = [
   {
