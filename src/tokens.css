@@ -6,78 +6,78 @@
 
 :root {
   /* Colori brand */
-  --color-orange:       #A04100;
-  --color-orange-light: #FEF0E6;
+  --color-orange: #a04100;
+  --color-orange-light: #fef0e6;
   --color-orange-hover: #863500;
 
-  --color-green:        #154212;
-  --color-green-light:  #eef2eb;
-  --color-green-hover:  #0e2e0c;
+  --color-green: #154212;
+  --color-green-light: #eef2eb;
+  --color-green-hover: #0e2e0c;
 
   /* Superfici */
-  --bg-main:    #f8f9fa;
-  --bg-white:   #ffffff;
+  --bg-main: #f8f9fa;
+  --bg-white: #ffffff;
   --bg-overlay: rgba(0, 0, 0, 0.45);
 
   /* Testo */
-  --text-dark:  #42493E;
-  --text-gray:  #6b7280;
+  --text-dark: #42493e;
+  --text-gray: #6b7280;
   --text-light: #9ca3af;
 
   /* Bordi */
-  --color-border:  #e5e7eb;
+  --color-border: #e5e7eb;
   --color-border-focus: #154212;
 
   /* Tipografia */
   --font-display: 'Montserrat', sans-serif;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Scale tipografica */
-  --text-xs:   0.70rem;   /* 11px */
-  --text-sm:   0.875rem;  /* 14px */
-  --text-base: 1rem;      /* 16px */
-  --text-lg:   1.125rem;  /* 18px */
-  --text-xl:   1.25rem;   /* 20px */
-  --text-2xl:  1.5rem;    /* 24px */
-  --text-3xl:  2rem;      /* 32px */
-  --text-4xl:  2.5rem;    /* 40px */
+  --text-xs: 0.7rem; /* 11px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.125rem; /* 18px */
+  --text-xl: 1.25rem; /* 20px */
+  --text-2xl: 1.5rem; /* 24px */
+  --text-3xl: 2rem; /* 32px */
+  --text-4xl: 2.5rem; /* 40px */
 
   /* Spaziature */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  12px;
-  --space-4:  16px;
-  --space-5:  20px;
-  --space-6:  24px;
-  --space-8:  32px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
   --space-10: 40px;
   --space-12: 48px;
   --space-16: 64px;
 
   /* Border radius */
-  --radius-sm:   6px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-xl:   16px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-full: 9999px;
 
   /* Ombre */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
 
   /* Transizioni */
-  --transition-fast:   0.15s ease;
+  --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
-  --transition-slow:   0.4s ease;
+  --transition-slow: 0.4s ease;
 
   /* Z-index */
-  --z-base:       1;
-  --z-dropdown:   100;
-  --z-sticky:     200;
-  --z-overlay:    300;
-  --z-modal:      400;
-  --z-toast:      500;
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
 }
 
 /* ============================================================

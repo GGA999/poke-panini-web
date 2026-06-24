@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useConfigurator } from '../context/ConfiguratorContext';
 import BottomActionBar from '../components/BottomActionBar';
 import ConfiguratorSideMenu from '../components/ConfiguratorSideMenu';
@@ -10,7 +11,7 @@ import salseIcon from '../Assets/salse.svg';
 import cartIcon from '../Assets/Cart.svg';
 import cartSel from '../Assets/Cart_sele.svg';
 import insalata from '../Assets/insalata.png';
-import quinoa from '../Assets/quinoa.png'
+import quinoa from '../Assets/quinoa.png';
 import riso_bianco from '../Assets/riso_bianco.png';
 import riso_venere from '../Assets/riso_venere.png';
 
@@ -61,6 +62,7 @@ const bases = [
 
 export default function Poke() {
   const { initialize, type, updateSelection, setPricing } = useConfigurator();
+  const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState('Regular');
   const [selectedBase, setSelectedBase] = useState('Riso venere');
   const hasProteine = false;
@@ -92,13 +94,13 @@ export default function Poke() {
     <div className={styles.page}>
       <div className={styles.shell}>
         <ConfiguratorSideMenu activeId="base" items={steps} />
-        
+
         <main className={styles.main}>
           <p className={styles.stepIndicator}>Step 1 di 4</p>
           <h1 className={styles.title}>Scegli la dimensione e la base</h1>
           <p className={styles.subtitle}>
-            Crea la tua poke perfetta partendo dalle fondamenta.
-            Scegli quanto hai fame e il tuo cereale o insalata preferita.
+            Crea la tua poke perfetta partendo dalle fondamenta. Scegli quanto hai fame e il tuo
+            cereale o insalata preferita.
           </p>
 
           {/* SEZIONE 1: SIZE */}
@@ -107,7 +109,7 @@ export default function Poke() {
               <span className={styles.stepNumber}>1</span>
               <h2>Quanto vuoi che sia grande?</h2>
             </div>
-            
+
             <div className={styles.sizeGrid}>
               {sizes.map((size) => {
                 const isSelected = selectedSize === size.id;
@@ -119,28 +121,18 @@ export default function Poke() {
                     onClick={() => setSelectedSize(size.id)}
                     aria-pressed={isSelected}
                   >
-                    {size.badge && (
-                      <span className={styles.badge}>{size.badge}</span>
-                    )}
-                    
+                    {size.badge && <span className={styles.badge}>{size.badge}</span>}
+
                     {/* Contenitore Flexbox con Icona a sinistra e Prezzo a destra */}
                     <span className={styles.cardHeader}>
                       <span className={styles.cardIcon}>
-                        <img
-                          src={isSelected ? cartSel : cartIcon}
-                          alt=""
-                          aria-hidden="true"
-                        />
+                        <img src={isSelected ? cartSel : cartIcon} alt="" aria-hidden="true" />
                       </span>
-                      <span className={styles.price}>
-                        €{size.price.toFixed(2)}
-                      </span>
+                      <span className={styles.price}>€{size.price.toFixed(2)}</span>
                     </span>
 
                     <strong className={styles.dimensione}>{size.label}</strong>
-                    <span className={styles.cardDescription}>
-                      {size.description}
-                    </span>
+                    <span className={styles.cardDescription}>{size.description}</span>
                   </button>
                 );
               })}
@@ -153,7 +145,7 @@ export default function Poke() {
               <span className={styles.stepNumber}>2</span>
               <h2>Scegli la tua base</h2>
             </div>
-            
+
             <div className={styles.baseGrid}>
               {bases.map((base) => {
                 const isSelected = selectedBase === base.id;
@@ -192,7 +184,12 @@ export default function Poke() {
               </strong>
               <span>Selezionato</span>
             </div>
-            <button className={styles.continueButton} type="button">
+            <button
+              className={styles.continueButton}
+              type="button"
+              onClick={() => navigate('/poke2')}
+            >
+              Continua
             </button>
           </>
         }

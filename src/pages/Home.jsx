@@ -10,8 +10,7 @@ const recommendedProducts = [
     id: 1,
     title: 'Sunset Salmon Poke',
     price: '\u20ac12.50',
-    description:
-      'Riso bianco, Salmone fresco, Avocado, Edamame, Alga Nori, Salsa Ponzu.',
+    description: 'Riso bianco, Salmone fresco, Avocado, Edamame, Alga Nori, Salsa Ponzu.',
     tags: ['BEST SELLER', 'HEALTHY'],
     image: poke2Image,
   },
@@ -28,8 +27,7 @@ const recommendedProducts = [
     id: 3,
     title: 'Spicy Tuna Bowl',
     price: '\u20ac13.00',
-    description:
-      'Quinoa, Tonno piccante, Jalapeno, Mango, Cipolla croccante, Mayo Sriracha.',
+    description: 'Quinoa, Tonno piccante, Jalapeno, Mango, Cipolla croccante, Mayo Sriracha.',
     tags: ['NEW ENTRY', 'SPICY'],
     image: poke3Image,
   },
@@ -41,9 +39,8 @@ export default function Home() {
       <header className={styles.heroHeader}>
         <h1>Crea il tuo mix perfetto.</h1>
         <p>
-          Scegli tra la freschezza esotica delle nostre Poke o il calore
-          avvolgente dei nostri Panini artigianali. Ingredienti premium,
-          assemblati da te.
+          Scegli tra la freschezza esotica delle nostre Poke o il calore avvolgente dei nostri
+          Panini artigianali. Ingredienti premium, assemblati da te.
         </p>
       </header>
 

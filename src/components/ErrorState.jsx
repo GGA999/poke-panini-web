@@ -7,7 +7,9 @@ export default function ErrorState({
 }) {
   return (
     <div className={styles.wrap} role="alert">
-      <div className={styles.icon} aria-hidden="true">⚠️</div>
+      <div className={styles.icon} aria-hidden="true">
+        ⚠️
+      </div>
       <div className={styles.text}>
         <div className={styles.title}>{title}</div>
         {description ? <div className={styles.description}>{description}</div> : null}
@@ -16,4 +18,3 @@ export default function ErrorState({
     </div>
   );
 }
-

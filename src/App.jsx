@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.href = '/'}>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => (window.location.href = '/')}>
       <QueryClientProvider client={queryClient}>
         <CartProvider>
           <ConfiguratorProvider>

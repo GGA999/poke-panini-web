@@ -2,14 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './MixCard.module.css';
 
 /* eslint-disable react/prop-types */
-export default function MixCard({
-  title,
-  description,
-  buttonText,
-  variant = 'poke',
-  icon,
-  to,
-}) {
+export default function MixCard({ title, description, buttonText, variant = 'poke', icon, to }) {
   const navigate = useNavigate();
   const variantClass = variant === 'panino' ? styles.panino : styles.poke;
 
@@ -23,11 +16,7 @@ export default function MixCard({
 
         <p className={styles.description}>{description}</p>
 
-        <button
-          className={styles.button}
-          type="button"
-          onClick={() => navigate(to)}
-        >
+        <button className={styles.button} type="button" onClick={() => navigate(to)}>
           <span>{buttonText}</span>
         </button>
       </div>

@@ -9,8 +9,6 @@ export default function ConfiguratorOptionCard({
   disabled = false,
   onClick,
 }) {
-  const priceText = price > 0 ? `+€${price.toFixed(2)}` : 'Incluso';
-
   return (
     <button
       className={`${styles.card} ${selected ? styles.selected : ''}`}
@@ -28,7 +26,7 @@ export default function ConfiguratorOptionCard({
           <span>{description}</span>
         </span>
         <span className={`${styles.priceTag} ${price === 0 ? styles.gr : styles.re}`}>
-          {price === 0 ? 'Gratis' : `+€${price.toFixed(2)}`}
+          {price === 0 ? 'Incluso' : `+€${price.toFixed(2)}`}
         </span>
       </span>
     </button>

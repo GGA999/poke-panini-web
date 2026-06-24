@@ -7,7 +7,10 @@
   background: var(--color-surface);
   padding: var(--space-4);
   cursor: pointer;
-  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease;
 }
 
 .card:focus-within {
@@ -77,4 +80,3 @@
 .disabled .dot {
   border-style: dashed;
 }
-

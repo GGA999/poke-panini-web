@@ -11,12 +11,12 @@
 
 ## Milestone
 
-| Milestone | Task | Risultato atteso |
-|---|---|---|
-| M1 — Fondazioni UI | FE-001–FE-004 | Progetto, routing, tema e struttura applicativa. |
-| M2 — Configuratore core | FE-005–FE-012 | Flusso Poke/Panino funzionante con stato e validazioni. |
-| M3 — Riepilogo e carrello | FE-013–FE-016 | Prezzo, riepilogo, modifica e aggiunta al carrello. |
-| M4 — Qualità e rilascio | FE-017–FE-020 | Accessibilità, test, performance e documentazione. |
+| Milestone                 | Task          | Risultato atteso                                        |
+| ------------------------- | ------------- | ------------------------------------------------------- |
+| M1 — Fondazioni UI        | FE-001–FE-004 | Progetto, routing, tema e struttura applicativa.        |
+| M2 — Configuratore core   | FE-005–FE-012 | Flusso Poke/Panino funzionante con stato e validazioni. |
+| M3 — Riepilogo e carrello | FE-013–FE-016 | Prezzo, riepilogo, modifica e aggiunta al carrello.     |
+| M4 — Qualità e rilascio   | FE-017–FE-020 | Accessibilità, test, performance e documentazione.      |
 
 ## Backlog completo
 
@@ -547,7 +547,7 @@
 ### Criteri di accettazione
 
 - [ ] Una pull request non può essere unita con controlli P0 falliti.
-- [ ] La build usa solo variabili pubbliche VITE_*.
+- [ ] La build usa solo variabili pubbliche VITE\_\*.
 - [ ] Staging e produzione puntano a API distinte.
 - [ ] Esiste una procedura documentata per rollback e verifica post-deploy.
 

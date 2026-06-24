@@ -40,7 +40,7 @@
   white-space: nowrap;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #A04100;
+  color: #a04100;
   text-decoration: none;
 }
 
@@ -66,7 +66,7 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
-} 
+}
 
 .cartIcon {
   text-decoration: none;
@@ -83,7 +83,6 @@
 .logo:hover {
   opacity: 0.95;
 }
-
 
 /* Responsive per schermi più piccoli */
 @media (max-width: 768px) {
@@ -103,4 +102,3 @@
     justify-content: center;
   }
 }
-

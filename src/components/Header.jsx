@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import img from '../Assets/logo.png';
 import styles from './Header.module.css';
-import { MdOutlineShoppingCart } from "react-icons/md";
-
+import { MdOutlineShoppingCart } from 'react-icons/md';
 
 export default function Header() {
   return (
@@ -10,7 +9,7 @@ export default function Header() {
       <div className={styles.container}>
         {/* Sinistra: logo + testo */}
         <Link to="/" className={styles.logo}>
-          <img src={img} alt="Poke & Panini"/>
+          <img src={img} alt="Poke & Panini" />
           <p className={styles.logo_text}>Poke & Panini</p>
         </Link>
 
@@ -26,7 +25,7 @@ export default function Header() {
             <Link to="/Menu">Menu</Link>
           </nav>
           <Link to="/carrello" className={styles.cartIcon} aria-label="Carrello">
-           <MdOutlineShoppingCart className={styles.carrello}/>
+            <MdOutlineShoppingCart className={styles.carrello} />
           </Link>
         </div>
       </div>

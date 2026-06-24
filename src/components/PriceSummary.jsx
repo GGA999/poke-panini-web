@@ -27,4 +27,3 @@ export default function PriceSummary({ total, currency = '€', lines = [] }) {
     </div>
   );
 }
-
