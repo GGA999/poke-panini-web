@@ -80,7 +80,7 @@ function toLabels(ids = [], dictionary, fallbackPrefix) {
 export default function PokeOrder() {
   const navigate = useNavigate();
   const { addItem } = useCart();
-  const { selections, pricing } = useConfigurator();
+  const { selections, pricing, reset } = useConfigurator();
   const savedConfigurator = useMemo(readSavedConfigurator, []);
   const savedSelections = savedConfigurator.selections || {};
 
@@ -133,6 +133,8 @@ export default function PokeOrder() {
         quantity: extras[product.id],
       })),
     });
+    reset();
+    setExtras({});
     navigate('/carrello');
   };
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BottomActionBar from '../../components/BottomActionBar';
 import ConfiguratorOptionCard from '../../components/ConfiguratorOptionCard';
 import ConfiguratorSideMenu from '../../components/ConfiguratorSideMenu';
+import Alert from '../../components/Alert';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import styles from './poke-pro.module.css';
 
@@ -77,6 +78,7 @@ export default function Poke2() {
   const navigate = useNavigate();
 
   const [selectedProteins, setSelectedProteins] = useState(selections?.proteins || []);
+  const [alert, setAlert] = useState(null);
 
   const limits = getLimits(selections?.size);
 
@@ -105,6 +107,12 @@ export default function Poke2() {
     setPricing(currentPrice);
   }, [selectedProteins, currentPrice, updateSelection, setPricing]);
 
+  useEffect(() => {
+    if (!alert) return;
+    const timer = window.setTimeout(() => setAlert(null), 3000);
+    return () => window.clearTimeout(timer);
+  }, [alert]);
+
   const handleSelectProtein = (id) => {
     setSelectedProteins((previous) => {
       if (previous.includes(id)) {
@@ -119,8 +127,31 @@ export default function Poke2() {
     });
   };
 
+  const continueToCondiments = () => {
+    if (selectedProteins.length !== limits.proteine) {
+      setAlert({
+        variant: 'warning',
+        title: 'Selezione proteine incompleta',
+        description: `Per la size ${sizeLabel} devi selezionare ${limits.proteine} proteine.`,
+      });
+      return;
+    }
+
+    navigate('/poke_con');
+  };
+
   return (
     <div className={styles.page}>
+      {alert ? (
+        <Alert
+          variant={alert.variant}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => setAlert(null)}
+          className={styles.alert}
+        />
+      ) : null}
+
       <div className={styles.shell}>
         <ConfiguratorSideMenu activeId="proteine" items={steps} />
 
@@ -130,7 +161,7 @@ export default function Poke2() {
 
             <h1>Scegli le tue proteine</h1>
 
-            <p>Seleziona fino a {limits.proteine} opzioni per la tua base.</p>
+            <p>Seleziona {limits.proteine} proteine per la tua poke.</p>
           </header>
 
           <div className={styles.optionsGrid}>
@@ -176,11 +207,7 @@ export default function Poke2() {
               </span>
             </div>
 
-            <button
-              className={styles.continueButton}
-              type="button"
-              onClick={() => navigate('/poke_con')}
-            >
+            <button className={styles.continueButton} type="button" onClick={continueToCondiments}>
               Continua
             </button>
           </>

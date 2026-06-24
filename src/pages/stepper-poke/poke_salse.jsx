@@ -200,7 +200,22 @@ export default function Salse() {
               <span>Selezionato</span>
             </div>
 
-            <button className={styles.continueButton} onClick={() => navigate('/poke_fine')}>
+            <button
+              className={styles.continueButton}
+              type="button"
+              onClick={() => {
+                if (selectedSalse.length < 1) {
+                  setAlert({
+                    variant: 'warning',
+                    title: 'Aggiungi almeno una salsa',
+                    description: 'Devi selezionare almeno una salsa per continuare.',
+                  });
+                  return;
+                }
+
+                navigate('/poke_fine');
+              }}
+            >
               Continua
             </button>
           </>
