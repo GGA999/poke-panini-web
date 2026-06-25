@@ -118,10 +118,8 @@ export default function PaninoOrder() {
     const basePrice = Number(orderSelections.basePrice) || 9.5;
     const proteinPrice = PROTEIN_OPTIONS[protein]?.price || 0;
     const veggieExtra = Math.max(0, veggies.length - 3) * 1.5;
-    const extrasPrice = EXTRAS_DATA?.filter((e) => extras.includes(e.id)).reduce(
-      (sum, e) => sum + e.price,
-      0
-    ) || 0;
+    const extrasPrice =
+      EXTRAS_DATA?.filter((e) => extras.includes(e.id)).reduce((sum, e) => sum + e.price, 0) || 0;
     return basePrice + proteinPrice + veggieExtra + extrasPrice;
   }, [orderSelections.basePrice, protein, veggies, extras]);
 
@@ -203,7 +201,9 @@ export default function PaninoOrder() {
             <div className={styles['ingredient-group']}>
               <h3>CARNE</h3>
               <div className={styles.tags}>
-                {protein ? renderChip(PROTEIN_OPTIONS[protein]?.label || protein) : renderChip('Nessuna carne')}
+                {protein
+                  ? renderChip(PROTEIN_OPTIONS[protein]?.label || protein)
+                  : renderChip('Nessuna carne')}
               </div>
             </div>
 
@@ -220,7 +220,7 @@ export default function PaninoOrder() {
               <h3>VERDURE</h3>
               <div className={styles.tags}>
                 {veggies.length
-                  ? toLabels(veggies, VEGGIE_OPTIONS, "").map(renderChip)
+                  ? toLabels(veggies, VEGGIE_OPTIONS, '').map(renderChip)
                   : renderChip('Nessuna verdura')}
               </div>
             </div>

@@ -3,48 +3,66 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/Cart.Context';
 import styles from './cart.module.css';
 
-// Import immagini (sostituisci con i tuoi path reali)
+// Import immagini
+import pokeImg from '../Assets/poke_fine.png';
+import paninoImg from '../Assets/panino_fine.png';
 import friesImg from '../Assets/patatine.png';
 import lemonadeImg from '../Assets/limonata.png';
 import brownieImg from '../Assets/brownie.png';
 
 const CROSS_SELL_ITEMS = [
-  { id: 'c1', name: 'Patatine Dolci', price: 4.00, image: friesImg },
-  { id: 'c2', name: 'Limonata Bio', price: 3.50, image: lemonadeImg },
-  { id: 'c3', name: 'Choco Brownie', price: 3.00, image: brownieImg },
+  { id: 'c1', name: 'Patatine Dolci', price: 4.0, image: friesImg },
+  { id: 'c2', name: 'Limonata Bio', price: 3.5, image: lemonadeImg },
+  { id: 'c3', name: 'Choco Brownie', price: 3.0, image: brownieImg },
 ];
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem } = useCart();
+  const { items, updateQuantity, removeItem, addItem } = useCart();
   const [promoCode, setPromoCode] = useState('');
   const navigate = useNavigate();
 
+  const getItemImage = (item) => {
+    if (item.image) return item.image;
+    if (item.type === 'poke' || item.name?.toLowerCase().includes('poke')) return pokeImg;
+    if (item.type === 'panino' || item.name?.toLowerCase().includes('panino')) return paninoImg;
+    return null;
+  };
+
+  const addCrossSellItem = (item) => {
+    addItem({
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      quantity: 1,
+      desc: ''
+    });
+  };
+
   const updateQty = (localId, delta) => {
-    const item = items.find(i => i.localId === localId);
+    const item = items.find((i) => i.localId === localId);
     if (item) {
       const newQty = Math.max(1, (item.quantity || 1) + delta);
       updateQuantity(localId, newQty);
     }
   };
 
-  const subtotal = items.reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0);
-  const deliveryFee = 2.50;
-  const discount = subtotal > 30 ? -2.50 : 0;
+  const subtotal = items.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+  const deliveryFee = 2.5;
+  const discount = subtotal > 30 ? -2.5 : 0;
   const total = subtotal + deliveryFee + discount;
 
   return (
     <div className={styles.cartPage}>
       <div className={styles.container}>
-        
         {/* COLONNA SINISTRA: Articoli */}
         <div className={styles.mainColumn}>
           <h1 className={styles.title}>Il Tuo Carrello</h1>
 
           <div className={styles.cartList}>
-            {items.map(item => (
+            {items.map((item) => (
               <div key={item.localId} className={styles.cartItem}>
                 <div className={styles.itemImage}>
-                  {item.image && <img src={item.image} alt={item.name} />}
+                  {getItemImage(item) && <img src={getItemImage(item)} alt={item.name} />}
                 </div>
 
                 <div className={styles.itemDetails}>
@@ -76,7 +94,7 @@ export default function CartPage() {
           <div className={styles.crossSellSection}>
             <h2>Completa il Tuo Pasto</h2>
             <div className={styles.crossSellGrid}>
-              {CROSS_SELL_ITEMS.map(item => (
+              {CROSS_SELL_ITEMS.map((item) => (
                 <div key={item.id} className={styles.crossSellCard}>
                   <div className={styles.csImage}>
                     <img src={item.image} alt={item.name} />
@@ -86,7 +104,7 @@ export default function CartPage() {
                       <h4>{item.name}</h4>
                       <p>€{item.price.toFixed(2)}</p>
                     </div>
-                    <button className={styles.addBtn}>+</button>
+                    <button className={styles.addBtn} onClick={() => addCrossSellItem(item)}>+</button>
                   </div>
                 </div>
               ))}
@@ -98,7 +116,7 @@ export default function CartPage() {
         <aside className={styles.sidebar}>
           <div className={styles.summaryCard}>
             <h3>Riepilogo Ordine</h3>
-            
+
             <div className={styles.summaryRow}>
               <span>Subtotale</span>
               <span>€{subtotal.toFixed(2)}</span>
@@ -122,9 +140,9 @@ export default function CartPage() {
             <div className={styles.promoSection}>
               <label>CODICE PROMOZIONALE</label>
               <div className={styles.promoInput}>
-                <input 
-                  type="text" 
-                  placeholder="Inserisci codice" 
+                <input
+                  type="text"
+                  placeholder="Inserisci codice"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                 />
@@ -142,7 +160,6 @@ export default function CartPage() {
             </div>
           </div>
         </aside>
-
       </div>
     </div>
   );

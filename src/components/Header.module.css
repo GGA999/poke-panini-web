@@ -77,10 +77,33 @@
   color: #000;
   display: inline-flex;
   align-items: center;
+  position: relative;
 }
 
 .cartIcon:hover {
   color: #ce5200;
+}
+
+.cartEmoji {
+  font-size: 1.5rem;
+  margin-left: 0.25rem;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ce5200;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
 }
 
 .logo:hover {

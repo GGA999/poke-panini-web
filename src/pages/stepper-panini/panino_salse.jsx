@@ -54,7 +54,8 @@ export default function PaninoSalseExtra() {
   const basePrice = Number(selections?.basePrice) || 0;
   const FREE_VEGGIES = 3;
   const EXTRA_VEGGIE_PRICE = 1.5;
-  const veggieExtra = Math.max(0, (selections?.verdure?.length || 0) - FREE_VEGGIES) * EXTRA_VEGGIE_PRICE;
+  const veggieExtra =
+    Math.max(0, (selections?.verdure?.length || 0) - FREE_VEGGIES) * EXTRA_VEGGIE_PRICE;
   const extrasPrice = EXTRAS_DATA.filter((e) => selectedExtras.includes(e.id)).reduce(
     (sum, e) => sum + e.price,
     0
@@ -200,7 +201,11 @@ export default function PaninoSalseExtra() {
               </strong>
               <span>Selezionato</span>
             </div>
-            <button className={styles.submitBtn} type="button" onClick={() => navigate('/panino_fine')}>
+            <button
+              className={styles.submitBtn}
+              type="button"
+              onClick={() => navigate('/panino_fine')}
+            >
               Vai al Riepilogo
             </button>
           </>

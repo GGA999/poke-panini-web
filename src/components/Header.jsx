@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import img from '../Assets/logo.png';
 import styles from './Header.module.css';
 import { MdOutlineShoppingCart } from 'react-icons/md';
+import { useCart } from '../context/Cart.Context';
 
 export default function Header() {
+  const { items } = useCart();
+  const cartCount = items.reduce((acc, item) => acc + (item.quantity || 1), 0);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -29,6 +33,8 @@ export default function Header() {
           </nav>
           <Link to="/carrello" className={styles.cartIcon} aria-label="Carrello">
             <MdOutlineShoppingCart className={styles.carrello} />
+            <span className={styles.cartEmoji}>🛒</span>
+            {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
           </Link>
         </div>
       </div>
