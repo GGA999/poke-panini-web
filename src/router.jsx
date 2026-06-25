@@ -19,7 +19,7 @@ const panino_carne = lazy(() => import('./pages/stepper-panini/panino_carne'));
 const panino_con = lazy(() => import('./pages/stepper-panini/panino_con'));
 const panino_salse = lazy(() => import('./pages/stepper-panini/panino_salse'));
 const panino_fine = lazy(() => import('./pages/stepper-panini/panino_fine'));
-const carrello = lazy(() => import('./pages/Carrello'));
+const emoji = lazy(() => import('./pages/emoji'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -53,10 +53,6 @@ export const router = createBrowserRouter(
         {
           path: 'cartPage',
           element: withSuspense(cartPage),
-        },
-        {
-          path: 'carrello',
-          element: withSuspense(carrello),
         },
         {
           path: 'ordine/:id',
@@ -98,6 +94,10 @@ export const router = createBrowserRouter(
           path: 'panino_fine',
           element: withSuspense(panino_fine),
         },
+        {
+          path: 'emoji',
+          element: withSuspense(emoji),
+        }
       ],
     },
   ],

@@ -31,9 +31,8 @@ export default function Header() {
           <nav className={styles.navRightMenu}>
             <Link to="/Menu">Menu</Link>
           </nav>
-          <Link to="/carrello" className={styles.cartIcon} aria-label="Carrello">
-            <MdOutlineShoppingCart className={styles.carrello} />
-            <span className={styles.cartEmoji}>🛒</span>
+          <Link to="/cartPage" className={styles.cartIcon} aria-label="Carrello">
+            <MdOutlineShoppingCart />
             {cartCount > 0 && <span className={styles.cartBadge}>{cartCount}</span>}
           </Link>
         </div>

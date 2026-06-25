@@ -34,7 +34,7 @@ export default function CartPage() {
       price: item.price,
       image: item.image,
       quantity: 1,
-      desc: ''
+      desc: '',
     });
   };
 
@@ -104,7 +104,9 @@ export default function CartPage() {
                       <h4>{item.name}</h4>
                       <p>€{item.price.toFixed(2)}</p>
                     </div>
-                    <button className={styles.addBtn} onClick={() => addCrossSellItem(item)}>+</button>
+                    <button className={styles.addBtn} onClick={() => addCrossSellItem(item)}>
+                      +
+                    </button>
                   </div>
                 </div>
               ))}

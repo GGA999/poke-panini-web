@@ -71,43 +71,59 @@
   transition: color 0.2s;
 }
 
-.cartIcon {
-  text-decoration: none;
-  font-size: 1.3rem;
-  color: #000;
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-}
-
-.cartIcon:hover {
-  color: #ce5200;
-}
-
 .cartEmoji {
   font-size: 1.5rem;
   margin-left: 0.25rem;
 }
 
+.logo:hover {
+  opacity: 0.95;
+}
+
+/* Contenitore dell'icona del carrello */
+.cartIcon {
+  text-decoration: none;
+  color: #604545; /* Uniformato al colore dei link del menu */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4px;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.carrelloIcon {
+  font-size: 1.6rem;
+  color: #604545 !important; /* Forza il colore scuro per renderla visibile */
+  display: inline-block; /* Assicura che prenda le dimensioni correttamente */
+}
+
+/* Hover effect sul carrello */
+.cartIcon:hover {
+  color: #ce5200;
+  transform: scale(1.08); /* Effetto pop discreto al passaggio del mouse */
+}
+
+/* Il badge con il contatore */
 .cartBadge {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -4px; /* Posizionamento calibrato */
+  right: -6px;
   background: #ce5200;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: bold;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px; /* Cambiato in min-width per gestire numeri a 2 cifre */
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
-}
-
-.logo:hover {
-  opacity: 0.95;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Rende il badge tridimensionale */
 }
 
 /* Responsive per schermi più piccoli */
