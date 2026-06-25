@@ -74,7 +74,7 @@ export default function Home() {
           description="Pane artigianale e farciture gourmet per il massimo della soddisfazione."
           buttonText="Inizia a comporre"
           variant="panino"
-          to="/panino"
+          to="/panino_pane"
           icon="B"
         />
       </section>

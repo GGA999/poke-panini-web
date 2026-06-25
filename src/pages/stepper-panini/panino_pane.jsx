@@ -8,8 +8,8 @@ import styles from './panino_pane.module.css'; // Puoi rinominarlo in panino.mod
 
 // Import Icone Menu Laterale (Mantieni o adatta i percorsi se ne hai di nuovi)
 import dimensioneIcon from '../../Assets/base.svg';
-import paneIcon from '../../Assets/base.svg';
-import farcituraIcon from '../../Assets/proteine.svg';
+import farcituraIcon from '../../Assets/condimenti.svg';
+import proteinaIcon from '../../Assets/proteine.svg';
 import salseIcon from '../../Assets/salse.svg';
 
 // Import Immagini Pane
@@ -85,14 +85,10 @@ export default function PaninoConfigurator() {
   }, [alert]);
 
   const steps = [
-    {
-      id: 'dimensione_pane',
-      label: 'Tipo di pane',
-      icon: dimensioneIcon,
-      completed: selectedBread !== null,
-    },
-    { id: 'farcitura', label: 'Farcitura', icon: farcituraIcon, completed: false },
-    { id: 'salse', label: 'Salse', icon: salseIcon, completed: false },
+    { id: 'dimensione_pane', label: 'Tipo di pane',       icon: dimensioneIcon, completed: selectedBread !== null },
+    { id: 'proteine',        label: 'Tipo di carne',       icon: proteinaIcon,  completed: false },
+    { id: 'condimenti',      label: 'Formaggi & verdure',  icon: farcituraIcon,  completed: false },
+    { id: 'salse',           label: 'Salse',               icon: salseIcon,      completed: false },
   ];
 
   return (
@@ -219,7 +215,7 @@ export default function PaninoConfigurator() {
                   });
                   return;
                 }
-                navigate('/panino_farcitura'); // Prossimo step fittizio
+                navigate('/panino_carne');
               }}
             >
               Continua →

@@ -1,7 +1,6 @@
 import styles from './ConfiguratorSideMenu.module.css';
 
-import { useNavigate } from 'react-router-dom';
-import { useConfigurator } from '../context/ConfiguratorContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ConfiguratorSideMenu({
   title = 'Il Tuo Mix',
@@ -10,20 +9,19 @@ export default function ConfiguratorSideMenu({
   activeId,
 }) {
   const navigate = useNavigate();
-  const { type } = useConfigurator();
+  const location = useLocation();
 
   const resolvePathForItem = (item) => {
     if (item.path) return item.path;
 
-    const isPanino = type === 'panino';
+    // Detect if we're on a panino route
+    const isPaninoRoute = location.pathname.startsWith('/panino');
 
-    const map = isPanino
+    const map = isPaninoRoute
       ? {
           dimensione_pane: '/panino_pane',
-          base: '/panino_pane',
           proteine: '/panino_carne',
-          farcitura: '/panino_condimenti',
-          condimenti: '/panino_condimenti',
+          condimenti: '/panino_con',
           salse: '/panino_salse',
         }
       : {

@@ -9,7 +9,7 @@ import styles from './panino_carne.module.css';
 // Asset icone sidebar
 import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
-import condimentiIcon from '../../Assets/base.svg';
+import farcituraIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';
 
 // Immagini Prodotti (placeholder o reali)
@@ -68,13 +68,18 @@ const PROTEIN_DATA = [
 ];
 
 export default function PaninoProteine() {
-  const { selections, updateSelection, setPricing } = useConfigurator();
+  const { selections, updateSelection, setPricing, type, initialize } = useConfigurator();
   const navigate = useNavigate();
 
   const [selectedProtein, setSelectedProtein] = useState(selections?.proteina || null);
   const [alert, setAlert] = useState(null);
 
-  // Calcolo prezzi (base + proteina selezionata)
+  useEffect(() => {
+    if (type !== 'panino') {
+      initialize('panino');
+    }
+  }, [type, initialize]);
+
   const basePrice = Number(selections?.basePrice) || 12.5;
   const proteinPrice = PROTEIN_DATA.find((p) => p.id === selectedProtein)?.price || 0;
   const totalPrice = basePrice + proteinPrice;
@@ -85,9 +90,9 @@ export default function PaninoProteine() {
   }, [selectedProtein, totalPrice]);
 
   const steps = [
-    { id: 'base', label: 'Base', icon: baseIcon, completed: true },
-    { id: 'proteine', label: 'Proteine', icon: proteineIcon, completed: false },
-    { id: 'condimenti', label: 'Condimenti', icon: condimentiIcon, completed: false },
+    { id: 'dimensione_pane', label: 'Tipo di pane', icon: baseIcon, completed: true },
+    { id: 'proteine', label: 'Tipo di carne', icon: proteineIcon, completed: false },
+    { id: 'condimenti', label: 'Formaggi & verdure', icon: farcituraIcon, completed: false },
     { id: 'salse', label: 'Salse', icon: salseIcon, completed: false },
   ];
 
@@ -164,7 +169,7 @@ export default function PaninoProteine() {
               className={styles.continueBtn}
               onClick={() =>
                 selectedProtein
-                  ? navigate('/panino_condimenti')
+                  ? navigate('/panino_con')
                   : setAlert({
                       variant: 'warning',
                       title: 'Attenzione',

@@ -18,7 +18,6 @@ export function ConfiguratorProvider({ children }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [pricing, setPricing] = useState(null);
 
-  // Carica i dati salvati (temporanei) quando la pagina viene ricaricata
   useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
@@ -33,7 +32,6 @@ export function ConfiguratorProvider({ children }) {
     if (parsed.pricing !== undefined) setPricing(parsed.pricing);
   }, []);
 
-  // Salva automaticamente ogni modifica allo stato configuratore
   useEffect(() => {
     const payload = {
       type,
@@ -45,20 +43,13 @@ export function ConfiguratorProvider({ children }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   }, [type, selections, currentStep, pricing]);
 
-  // IMPORTANTISSIMO:
-  // initialize() deve ripulire SOLO quando serve (tipicamente quando l’utente
-  // parte da zero). Se l’utente è già in mezzo al configuratore, non dobbiamo
-  // sovrascrivere localStorage.
   const initialize = useCallback((configuratorType) => {
     setType((prevType) => {
-      // Se stiamo passando da non-inizializzato a un tipo, ok.
       if (!prevType) return configuratorType;
-      // Se il tipo è lo stesso, NON reimpostare selections.
       return prevType;
     });
 
     setSelections((prevSelections) => {
-      // Se non c'erano selections ancora, inizializza.
       if (prevSelections && Object.keys(prevSelections).length > 0) return prevSelections;
       return {};
     });
@@ -89,7 +80,6 @@ export function ConfiguratorProvider({ children }) {
     window.localStorage.removeItem(STORAGE_KEY);
   }, []);
 
-  // Dentro ConfiguratorProvider, prima del useMemo
   const getLimits = useCallback((size) => {
     switch (size) {
       case 'Small':
@@ -101,8 +91,6 @@ export function ConfiguratorProvider({ children }) {
     }
   }, []);
 
-  // PRIMA
-  // DOPO
   const value = useMemo(
     () => ({
       type,
@@ -114,7 +102,7 @@ export function ConfiguratorProvider({ children }) {
       setCurrentStep,
       setPricing,
       reset,
-      getLimits, // ← aggiunto
+      getLimits,
     }),
     [
       type,
@@ -124,7 +112,7 @@ export function ConfiguratorProvider({ children }) {
       initialize,
       updateSelection,
       reset,
-      getLimits, // ← aggiunto
+      getLimits,
     ]
   );
 
