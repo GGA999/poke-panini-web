@@ -15,7 +15,7 @@ import salseIcon from '../../Assets/salse.svg';
 // Immagini Extra
 import baconImg from '../../Assets/bacon.png';
 import uovoImg from '../../Assets/uovo.png';
-import cipollaCrocImg from '../../Assets/cipolla.png'; // o icona di fallback
+import cipollaCrocImg from '../../Assets/cipolla.png';
 import doppiaCarneImg from '../../Assets/carne.png';
 
 const EXTRAS_DATA = [
@@ -26,11 +26,11 @@ const EXTRAS_DATA = [
 ];
 
 const SAUCES_DATA = [
-  { id: 'maionese', name: 'Maionese', color: '#b56917' }, // Marroncino/ocra come da UI
-  { id: 'ketchup', name: 'Ketchup', color: '#b81d24' },
-  { id: 'barbecue', name: 'Barbecue', color: '#5c2d16' },
-  { id: 'senape', name: 'Senape', color: '#fab805' },
-  { id: 'salsa_piccante', name: 'Salsa Piccante', color: '#d32f2f', isSpicy: true },
+  { id: 'maionese', name: 'Maionese', color: '#A04100' },
+  { id: 'ketchup', name: 'Ketchup', color: '#BA1A1A' },
+  { id: 'barbecue', name: 'Barbecue', color: '#572000' },
+  { id: 'senape', name: 'Senape', color: '#FFD700' },
+  { id: 'salsa_piccante', name: 'Salsa Piccante', color: '#BA1A1A', isSpicy: true },
 ];
 
 export default function PaninoSalseExtra() {

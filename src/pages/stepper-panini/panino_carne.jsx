@@ -74,7 +74,6 @@ export default function PaninoProteine() {
   const [selectedProtein, setSelectedProtein] = useState(selections?.proteina || null);
   const [alert, setAlert] = useState(null);
 
-  // Calcolo prezzi (base + proteina selezionata)
   const basePrice = Number(selections?.basePrice) || 12.5;
   const proteinPrice = PROTEIN_DATA.find((p) => p.id === selectedProtein)?.price || 0;
   const totalPrice = basePrice + proteinPrice;
