@@ -9,7 +9,7 @@ import styles from './panino_carne.module.css';
 // Asset icone sidebar
 import baseIcon from '../../Assets/base.svg';
 import proteineIcon from '../../Assets/proteine.svg';
-import condimentiIcon from  '../../Assets/base.svg';
+import condimentiIcon from '../../Assets/base.svg';
 import salseIcon from '../../Assets/salse.svg';
 
 // Immagini Prodotti (placeholder o reali)
@@ -76,7 +76,7 @@ export default function PaninoProteine() {
 
   // Calcolo prezzi (base + proteina selezionata)
   const basePrice = Number(selections?.basePrice) || 12.5;
-  const proteinPrice = PROTEIN_DATA.find(p => p.id === selectedProtein)?.price || 0;
+  const proteinPrice = PROTEIN_DATA.find((p) => p.id === selectedProtein)?.price || 0;
   const totalPrice = basePrice + proteinPrice;
 
   useEffect(() => {
@@ -102,7 +102,10 @@ export default function PaninoProteine() {
           <header className={styles.header}>
             <p className={styles.stepIndicator}>STEP 2 DI 4</p>
             <h1>Scegli il tuo tipo di carne</h1>
-            <p>L'anima del tuo panino. Seleziona una tra le nostre opzioni premium preparate al momento.</p>
+            <p>
+              L'anima del tuo panino. Seleziona una tra le nostre opzioni premium preparate al
+              momento.
+            </p>
           </header>
 
           <div className={styles.proteinGrid}>
@@ -119,7 +122,7 @@ export default function PaninoProteine() {
                       <i className="fa-solid fa-circle-check"></i>
                     </div>
                   )}
-                  
+
                   <div className={styles.imageContainer}>
                     <img src={item.image} alt={item.name} />
                   </div>
@@ -127,11 +130,9 @@ export default function PaninoProteine() {
                   <div className={styles.cardInfo}>
                     <h3>{item.name}</h3>
                     <p>{item.desc}</p>
-                    
+
                     <div className={styles.cardFooter}>
-                      <span className={`${styles.tag} ${styles[item.tagClass]}`}>
-                        {item.tag}
-                      </span>
+                      <span className={`${styles.tag} ${styles[item.tagClass]}`}>{item.tag}</span>
                       <span className={styles.price}>
                         + €{item.price.toFixed(2).replace('.', ',')}
                       </span>
@@ -154,12 +155,22 @@ export default function PaninoProteine() {
         right={
           <>
             <div className={styles.summary}>
-              <strong>{selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}</strong>
+              <strong>
+                {selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}
+              </strong>
               <span>Selezionato</span>
             </div>
             <button
               className={styles.continueBtn}
-              onClick={() => selectedProtein ? navigate('/panino_condimenti') : setAlert({ variant: 'warning', title: 'Attenzione', description: 'Seleziona una proteina per continuare' })}
+              onClick={() =>
+                selectedProtein
+                  ? navigate('/panino_condimenti')
+                  : setAlert({
+                      variant: 'warning',
+                      title: 'Attenzione',
+                      description: 'Seleziona una proteina per continuare',
+                    })
+              }
             >
               Continua <i className="fa-solid fa-arrow-right"></i>
             </button>

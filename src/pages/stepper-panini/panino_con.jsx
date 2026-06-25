@@ -53,12 +53,13 @@ export default function PaninoCondimenti() {
   const [selectedVeggies, setSelectedVeggies] = useState(selections?.verdure || []);
   const [alert, setAlert] = useState(null);
 
-  // Limiti configurabili (es. max 2 formaggi, max 4 verdure)
-  const limits = getLimits?.(selections?.size) || { formaggi: 2, verdure: 4 };
+  // Limiti: max 1 formaggio, max 4 verdure (3 incluse, 4° costa +1.50€)
+  const limits = { formaggi: 1, verdure: 4 };
 
-  const basePrice = Number(selections?.basePrice) || 12.50;
-  // Gestisci qui eventuali calcoli se formaggi o verdure extra hanno un costo supplementare
-  const totalPrice = basePrice; 
+  const basePrice = Number(selections?.basePrice) || 12.5;
+  // Calcolo extra verdure: la 4° verdura costa +1.50€
+  const veggieExtra = selectedVeggies.length > 3 ? 1.5 : 0;
+  const totalPrice = basePrice + veggieExtra;
 
   useEffect(() => {
     updateSelection('formaggi', selectedCheeses);
@@ -84,7 +85,7 @@ export default function PaninoCondimenti() {
     setAlert({
       variant: 'warning',
       title: 'Limite formaggi raggiunto',
-      description: `Puoi selezionare al massimo ${limits.formaggi} formaggi.`,
+      description: `Puoi selezionare al massimo ${limits.formaggi} formaggio.`,
     });
   };
 
@@ -130,7 +131,9 @@ export default function PaninoCondimenti() {
           <header className={styles.header}>
             <p className={styles.stepIndicator}>STEP 3 DI 4</p>
             <h1>Metti il gusto nel dettaglio</h1>
-            <p>Scegli i tuoi formaggi preferiti e le verdure più fresche per il tuo panino gourmet.</p>
+            <p>
+              Scegli i tuoi formaggi preferiti e le verdure più fresche per il tuo panino gourmet.
+            </p>
           </header>
 
           {/* Sezione Formaggi */}
@@ -171,6 +174,8 @@ export default function PaninoCondimenti() {
             <div className={styles.condimentGrid}>
               {VEGGIES_DATA.map((veg) => {
                 const isSelected = selectedVeggies.includes(veg.id);
+                // Mostra +1.50€ se è la 4° verdura selezionata
+                const showExtraPrice = isSelected && selectedVeggies.indexOf(veg.id) === 3;
                 return (
                   <button
                     key={veg.id}
@@ -182,7 +187,10 @@ export default function PaninoCondimenti() {
                       <img src={veg.image} alt={veg.name} />
                     </div>
                     <div className={styles.cardInfo}>
-                      <span className={styles.condimentName}>{veg.name}</span>
+                      <span className={styles.condimentName}>
+                        {veg.name}
+                        {showExtraPrice && <span className={styles.extraPrice}> + 1,50 €</span>}
+                      </span>
                     </div>
                   </button>
                 );
@@ -202,7 +210,9 @@ export default function PaninoCondimenti() {
         right={
           <>
             <div className={styles.summary}>
-              <strong>{selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}</strong>
+              <strong>
+                {selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}
+              </strong>
               <span>Selezionato</span>
             </div>
             <button

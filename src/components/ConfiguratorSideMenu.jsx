@@ -1,6 +1,7 @@
 import styles from './ConfiguratorSideMenu.module.css';
 
 import { useNavigate } from 'react-router-dom';
+import { useConfigurator } from '../context/ConfiguratorContext';
 
 export default function ConfiguratorSideMenu({
   title = 'Il Tuo Mix',
@@ -9,16 +10,28 @@ export default function ConfiguratorSideMenu({
   activeId,
 }) {
   const navigate = useNavigate();
+  const { type } = useConfigurator();
 
   const resolvePathForItem = (item) => {
     if (item.path) return item.path;
 
-    const map = {
-      base: '/poke',
-      proteine: '/poke2',
-      condimenti: '/poke_con',
-      salse: '/poke_salse',
-    };
+    const isPanino = type === 'panino';
+
+    const map = isPanino
+      ? {
+          dimensione_pane: '/panino_pane',
+          base: '/panino_pane',
+          proteine: '/panino_carne',
+          farcitura: '/panino_condimenti',
+          condimenti: '/panino_condimenti',
+          salse: '/panino_salse',
+        }
+      : {
+          base: '/poke',
+          proteine: '/poke2',
+          condimenti: '/poke_con',
+          salse: '/poke_salse',
+        };
 
     return map[item.id];
   };

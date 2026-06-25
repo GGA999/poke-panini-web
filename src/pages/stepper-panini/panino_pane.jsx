@@ -62,7 +62,7 @@ export default function PaninoConfigurator() {
   const [alert, setAlert] = useState(null);
 
   // Calcolo dinamico del prezzo
-  const basePrice = selectedSize === 'maxi' ? 14.5 : 12.5; // Esempio: Maxi costa +2€ rispetto a 12.50€
+  const basePrice = selectedSize === 'maxi' ? 11.5 : 9.5;
   const breadExtra = BREAD_DATA.find((b) => b.id === selectedBread)?.price || 0;
   const totalPrice = basePrice + breadExtra;
 
