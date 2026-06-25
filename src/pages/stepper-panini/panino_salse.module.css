@@ -1,13 +1,24 @@
 .pageContainer {
+  position: relative;
   background-color: #fafafa;
   min-height: 100vh;
+}
+
+.alert {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 20;
+  width: min(420px, calc(100% - 32px));
+  box-shadow: 0 18px 45px rgba(44, 24, 16, 0.14);
 }
 
 .shell {
   display: flex;
   max-width: 1440px;
-  margin: 0 auto;
   padding-bottom: 120px;
+  display: flex;
+  min-height: calc(100vh - 66px);
 }
 
 .mainContent {
@@ -191,33 +202,74 @@
 /* Bottom Bar personalizzata (Prezzo in verde e bottone differente) */
 .totalBox span {
   font-size: 12px;
-  color: #718096;
+  color: #666;
   display: block;
 }
-.greenPrice {
-  font-size: 26px;
-  color: #1e522f !important;
-  font-weight: 800;
+.totalBox strong {
+  font-size: 24px;
+  color: #a65e2e;
 }
 
-.submitBtn {
+.summary {
+  text-align: right;
+  margin-right: 20px;
+}
+.summary strong {
+  display: block;
+  font-size: 14px;
+  color: #2d5a27;
+}
+.summary span {
+  font-size: 12px;
+  color: #888;
+}
+
+.continueBtn {
   background: #ff7a00;
   color: white;
   border: none;
-  padding: 14px 40px;
-  border-radius: 25px; /* Più arrotondato nell'immagine di riepilogo finale */
+  padding: 12px 30px;
+  border-radius: 8px;
   font-weight: 700;
-  font-size: 15px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   transition: background 0.2s;
 }
 
-.submitBtn:hover {
+.continueBtn:hover {
   background: #e66e00;
 }
 
-@media (max-width: 992px) {
-  .extrasGrid {
-    grid-template-columns: 1fr;
-  }
+.selectionSummary {
+  color: #2e5927;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
 }
+
+.selectionSummary span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.continueButton {
+  background-color: #ff6f00;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 36px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.continueButton:hover {
+  background-color: #e66400;
+}
+  

@@ -2,38 +2,55 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/Cart.Context';
 import { useConfigurator } from '../../context/ConfiguratorContext';
-import styles from './poke_fine.module.css';
+import styles from './panino_fine.module.css';
+
+// Immagini Extra
+import baconImg from '../../Assets/bacon.png';
+import uovoImg from '../../Assets/uovo.png';
+import cipollaCrocImg from '../../Assets/cipolla.png';
+import doppiaCarneImg from '../../Assets/carne.png';
+
+const EXTRAS_DATA = [
+  { id: 'bacon', name: 'Bacon Croccante', price: 1.5, image: baconImg },
+  { id: 'uovo', name: "Uovo all'Occhio", price: 1.2, image: uovoImg },
+  { id: 'cipolla_croccante', name: 'Cipolla Croccante', price: 0.8, image: cipollaCrocImg },
+  { id: 'doppia_carne', name: 'Doppia Carne', price: 3.5, image: doppiaCarneImg },
+];
 
 const STORAGE_KEY = 'poke-panini-web:configurator';
 
 const PROTEIN_OPTIONS = {
-  salmone: { label: 'Salmone', price: 1.5 },
-  tonno: { label: 'Tonno', price: 2 },
-  pollo: { label: 'Pollo', price: 0 },
-  gamberi: { label: 'Gamberi', price: 1.8 },
-  tofu: { label: 'Tofu', price: 0 },
-  uovo: { label: 'Uovo', price: 0 },
+  manzo: { label: 'Manzo', price: 0 },
+  pollo: { label: 'Pollo', price: 0.5 },
+  cotoletta: { label: 'Cotoletta', price: 1 },
+  pulled: { label: 'Pulled Pork', price: 2 },
+  vegetale: { label: 'Vegetale', price: 1.5 },
 };
 
-const CONDIMENT_OPTIONS = {
-  avocado: 'Avocado',
-  edamame: 'Edamame',
+const CHEESE_OPTIONS = {
+  cheddar: 'Cheddar',
+  provolone: 'Provolone',
+  mozzarella: 'Mozzarella',
+  gorgonzola: 'Gorgonzola',
+  scamorza: 'Scamorza',
+};
+
+const VEGGIE_OPTIONS = {
+  lattuga: 'Lattuga',
+  pomodoro: 'Pomodoro',
+  cipolla: 'Cipolla',
   cetriolo: 'Cetriolo',
+  peperoni: 'Peperoni',
   carote: 'Carote',
-  mango: 'Mango',
-  cavolo_rosso: 'Cavolo rosso',
-  mais: 'Mais',
-  cipolla_croccante: 'Cipolla croccante',
-  sesamo: 'Sesamo',
-  alghe: 'Alghe',
+  rucola: 'Rucola',
 };
 
 const SAUCE_OPTIONS = {
-  soia: { label: 'Salsa di soia', price: 0 },
-  teriyaki: { label: 'Teriyaki', price: 0.5 },
-  spicy: { label: 'Spicy Mayo', price: 0.5 },
-  ponzu: { label: 'Ponzu', price: 0 },
-  yogurt: { label: 'Yogurt', price: 0 },
+  maionese: { label: 'Maionese', price: 0 },
+  ketchup: { label: 'Ketchup', price: 0 },
+  senape: { label: 'Senape', price: 0 },
+  bbq: { label: 'BBQ', price: 0 },
+  salsa_piccante: { label: 'Salsa piccante', price: 0 },
 };
 
 const EXTRA_PRODUCTS = [
@@ -77,7 +94,7 @@ function toLabels(ids = [], dictionary, fallbackPrefix) {
   return ids.map((id) => dictionary[id]?.label || dictionary[id] || `${fallbackPrefix} ${id}`);
 }
 
-export default function PokeOrder() {
+export default function PaninoOrder() {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { selections, pricing, reset } = useConfigurator();
@@ -89,52 +106,58 @@ export default function PokeOrder() {
     ...savedSelections,
   };
 
-  const size = orderSelections.size || 'Regular';
-  const base = orderSelections.base || 'Riso venere';
-  const proteins = useMemo(() => orderSelections.proteins || [], [orderSelections.proteins]);
-  const condiments = useMemo(() => orderSelections.condimenti || [], [orderSelections.condimenti]);
+  const size = orderSelections.size || 'Normale';
+  const bread = orderSelections.bread || 'Bun Classico';
+  const protein = orderSelections.proteina;
+  const cheeses = useMemo(() => orderSelections.formaggi || [], [orderSelections.formaggi]);
+  const veggies = useMemo(() => orderSelections.verdure || [], [orderSelections.verdure]);
   const sauces = useMemo(() => orderSelections.salse || [], [orderSelections.salse]);
+  const extras = useMemo(() => orderSelections.extras || [], [orderSelections.extras]);
 
-  const fallbackPokePrice = useMemo(() => {
-    const basePrice = Number(orderSelections.basePrice) || 12.5;
-    const proteinsTotal = proteins.reduce((sum, id) => sum + (PROTEIN_OPTIONS[id]?.price || 0), 0);
-    const saucesTotal = sauces.reduce((sum, id) => sum + (SAUCE_OPTIONS[id]?.price || 0), 0);
-    return basePrice + proteinsTotal + saucesTotal;
-  }, [orderSelections.basePrice, proteins, sauces]);
+  const fallbackPaninoPrice = useMemo(() => {
+    const basePrice = Number(orderSelections.basePrice) || 9.5;
+    const proteinPrice = PROTEIN_OPTIONS[protein]?.price || 0;
+    const veggieExtra = Math.max(0, veggies.length - 3) * 1.5;
+    const extrasPrice = EXTRAS_DATA?.filter((e) => extras.includes(e.id)).reduce(
+      (sum, e) => sum + e.price,
+      0
+    ) || 0;
+    return basePrice + proteinPrice + veggieExtra + extrasPrice;
+  }, [orderSelections.basePrice, protein, veggies, extras]);
 
-  const pokePrice = Number(savedConfigurator.pricing ?? pricing ?? fallbackPokePrice);
-  const [extras, setExtras] = useState({});
+  const paninoPrice = Number(savedConfigurator.pricing ?? pricing ?? fallbackPaninoPrice);
+  const [selectedExtras, setSelectedExtras] = useState({});
 
   const extrasTotal = EXTRA_PRODUCTS.reduce(
-    (sum, product) => sum + (extras[product.id] || 0) * product.price,
+    (sum, product) => sum + (selectedExtras[product.id] || 0) * product.price,
     0
   );
-  const totalPrice = pokePrice + extrasTotal;
+  const totalPrice = paninoPrice + extrasTotal;
 
   const addExtra = (productId) => {
-    setExtras((previous) => ({
+    setSelectedExtras((previous) => ({
       ...previous,
       [productId]: (previous[productId] || 0) + 1,
     }));
   };
 
-  const goToConfigurator = () => navigate('/poke');
+  const goToConfigurator = () => navigate('/panino_pane');
 
   const handleAddToCart = () => {
     addItem({
-      name: `Poke Bowl ${size}`,
+      name: `Panino ${size}`,
       price: totalPrice,
       quantity: 1,
       selections: orderSelections,
-      extras: EXTRA_PRODUCTS.filter((product) => extras[product.id]).map((product) => ({
+      extras: EXTRA_PRODUCTS.filter((product) => selectedExtras[product.id]).map((product) => ({
         id: product.id,
         name: product.name,
         price: product.price,
-        quantity: extras[product.id],
+        quantity: selectedExtras[product.id],
       })),
     });
     reset();
-    setExtras({});
+    setSelectedExtras({});
     navigate('/cartPage');
   };
 
@@ -148,10 +171,10 @@ export default function PokeOrder() {
     <div className={styles['order-container']}>
       <div className={styles['order-header-section']}>
         <p className={styles.breadcrumb}>
-          <Link to="/poke">Configuratore</Link> &gt;{' '}
+          <Link to="/panino_pane">Configuratore</Link> &gt;{' '}
           <span className={styles['breadcrumb-active']}>Riepilogo Finale</span>
         </p>
-        <h1 className={styles['main-title']}>Il Tuo Capolavoro</h1>
+        <h1 className={styles['main-title']}>Il Tuo Panino</h1>
         <p className={styles.subtitle}>Controlla gli ingredienti e preparati al primo morso.</p>
       </div>
 
@@ -159,39 +182,46 @@ export default function PokeOrder() {
         <div className={styles['selection-card']}>
           <div className={styles['selection-image-container']}>
             <img
-              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80"
-              alt="Poke Bowl"
-              className={styles['poke-image']}
+              src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80"
+              alt="Panino"
+              className={styles['panino-image']}
             />
-            <span className={styles.badge}>Poke Bowl {size}</span>
+            <span className={styles.badge}>Panino {size}</span>
           </div>
 
           <div className={styles['selection-details']}>
             <div className={styles['selection-header']}>
               <h2>La Tua Selezione</h2>
-              <span className={styles.price}>{formatPrice(pokePrice)}</span>
+              <span className={styles.price}>{formatPrice(paninoPrice)}</span>
             </div>
 
             <div className={styles['ingredient-group']}>
-              <h3>BASE</h3>
-              <div className={styles.tags}>{renderChip(base)}</div>
+              <h3>DIMENSIONE & PANE</h3>
+              <div className={styles.tags}>{renderChip(`${size} + ${bread}`)}</div>
             </div>
 
             <div className={styles['ingredient-group']}>
-              <h3>PROTEINE</h3>
+              <h3>CARNE</h3>
               <div className={styles.tags}>
-                {proteins.length
-                  ? toLabels(proteins, PROTEIN_OPTIONS, 'Proteina').map(renderChip)
-                  : renderChip('Nessuna proteina')}
+                {protein ? renderChip(PROTEIN_OPTIONS[protein]?.label || protein) : renderChip('Nessuna carne')}
               </div>
             </div>
 
             <div className={styles['ingredient-group']}>
-              <h3>CONDIMENTI</h3>
+              <h3>FORMAGGI</h3>
               <div className={styles.tags}>
-                {condiments.length
-                  ? toLabels(condiments, CONDIMENT_OPTIONS, 'Condimento').map(renderChip)
-                  : renderChip('Nessun condimento')}
+                {cheeses.length
+                  ? toLabels(cheeses, CHEESE_OPTIONS, 'Formaggio').map(renderChip)
+                  : renderChip('Nessun formaggio')}
+              </div>
+            </div>
+
+            <div className={styles['ingredient-group']}>
+              <h3>VERDURE</h3>
+              <div className={styles.tags}>
+                {veggies.length
+                  ? toLabels(veggies, VEGGIE_OPTIONS, "").map(renderChip)
+                  : renderChip('Nessuna verdura')}
               </div>
             </div>
 
@@ -209,15 +239,15 @@ export default function PokeOrder() {
         <div className={styles['summary-card']}>
           <h2>Riepilogo Ordine</h2>
           <div className={styles['summary-row']}>
-            <span>Poke Bowl {size}</span>
-            <span>{formatPrice(pokePrice)}</span>
+            <span>Panino {size}</span>
+            <span>{formatPrice(paninoPrice)}</span>
           </div>
-          {EXTRA_PRODUCTS.filter((product) => extras[product.id]).map((product) => (
+          {EXTRA_PRODUCTS.filter((product) => selectedExtras[product.id]).map((product) => (
             <div className={styles['summary-row']} key={product.id}>
               <span>
-                {product.name} x{extras[product.id]}
+                {product.name} x{selectedExtras[product.id]}
               </span>
-              <span>{formatPrice(product.price * extras[product.id])}</span>
+              <span>{formatPrice(product.price * selectedExtras[product.id])}</span>
             </div>
           ))}
           <div className={styles['summary-row']}>

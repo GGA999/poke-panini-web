@@ -1,9 +1,12 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
 const CartContext = createContext(undefined);
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const saved = localStorage.getItem('cartItems');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const addItem = useCallback((item) => {
     setItems((prev) => [...prev, { ...item, localId: Date.now() }]);
@@ -22,6 +25,10 @@ export function CartProvider({ children }) {
   const clear = useCallback(() => {
     setItems([]);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(items));
+  }, [items]);
 
   const value = {
     items,

@@ -14,7 +14,6 @@ export default function ConfiguratorSideMenu({
   const resolvePathForItem = (item) => {
     if (item.path) return item.path;
 
-    // Detect if we're on a panino route
     const isPaninoRoute = location.pathname.startsWith('/panino');
 
     const map = isPaninoRoute

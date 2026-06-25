@@ -75,6 +75,7 @@ export default function PaninoConfigurator() {
   useEffect(() => {
     updateSelection('size', selectedSize);
     updateSelection('bread', selectedBread);
+    updateSelection('basePrice', totalPrice);
     setPricing(totalPrice);
   }, [selectedSize, selectedBread, totalPrice, updateSelection, setPricing]);
 
@@ -85,10 +86,15 @@ export default function PaninoConfigurator() {
   }, [alert]);
 
   const steps = [
-    { id: 'dimensione_pane', label: 'Tipo di pane',       icon: dimensioneIcon, completed: selectedBread !== null },
-    { id: 'proteine',        label: 'Tipo di carne',       icon: proteinaIcon,  completed: false },
-    { id: 'condimenti',      label: 'Formaggi & verdure',  icon: farcituraIcon,  completed: false },
-    { id: 'salse',           label: 'Salse',               icon: salseIcon,      completed: false },
+    {
+      id: 'dimensione_pane',
+      label: 'Tipo di pane',
+      icon: dimensioneIcon,
+      completed: selectedBread !== null,
+    },
+    { id: 'proteine', label: 'Tipo di carne', icon: proteinaIcon, completed: false },
+    { id: 'condimenti', label: 'Formaggi & verdure', icon: farcituraIcon, completed: false },
+    { id: 'salse', label: 'Salse', icon: salseIcon, completed: false },
   ];
 
   return (
@@ -218,7 +224,7 @@ export default function PaninoConfigurator() {
                 navigate('/panino_carne');
               }}
             >
-              Continua →
+              Continua
             </button>
           </>
         }
