@@ -88,10 +88,10 @@ export default function PaninoSalseExtra() {
   };
 
   const steps = [
-    { id: 'base', label: 'Base', icon: baseIcon, completed: true },
-    { id: 'proteine', label: 'Proteine', icon: proteineIcon, completed: true },
-    { id: 'condimenti', label: 'Condimenti', icon: condimentiIcon, completed: true },
-    { id: 'salse', label: 'Salse & Extra', icon: salseIcon, completed: false },
+    { id: 'dimensione_pane', label: 'Tipo di pane', icon: baseIcon, completed: true },
+    { id: 'proteine', label: 'Tipo di carne', icon: proteineIcon, completed: true },
+    { id: 'condimenti', label: 'Formaggi & verdure', icon: condimentiIcon, completed: true },
+    { id: 'salse', label: 'Salse', icon: salseIcon, completed: false },
   ];
 
   return (
