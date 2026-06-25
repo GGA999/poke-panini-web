@@ -183,7 +183,7 @@ export default function PaninoSalseExtra() {
         }
         right={
           <button className={styles.submitBtn} type="button" onClick={() => navigate('/riepilogo')}>
-            Vai al Riepilogo →
+            Vai al Riepilogo
           </button>
         }
       />

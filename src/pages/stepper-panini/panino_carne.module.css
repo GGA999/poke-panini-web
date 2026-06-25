@@ -6,8 +6,9 @@
 .shell {
   display: flex;
   max-width: 1440px;
-  margin: 0 auto;
-  padding-bottom: 100px; /* Spazio per la bottom bar */
+  padding-bottom: 120px;
+  display: flex;
+  min-height: calc(100vh - 66px);
 }
 
 .mainContent {

@@ -104,16 +104,7 @@ export function ConfiguratorProvider({ children }) {
       reset,
       getLimits,
     }),
-    [
-      type,
-      selections,
-      currentStep,
-      pricing,
-      initialize,
-      updateSelection,
-      reset,
-      getLimits,
-    ]
+    [type, selections, currentStep, pricing, initialize, updateSelection, reset, getLimits]
   );
 
   return <ConfiguratorContext.Provider value={value}>{children}</ConfiguratorContext.Provider>;

@@ -177,7 +177,7 @@ export default function PaninoProteine() {
                     })
               }
             >
-              Continua <i className="fa-solid fa-arrow-right"></i>
+              Continua
             </button>
           </>
         }

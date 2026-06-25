@@ -53,12 +53,13 @@ export default function PaninoCondimenti() {
   const [selectedVeggies, setSelectedVeggies] = useState(selections?.verdure || []);
   const [alert, setAlert] = useState(null);
 
-  // Limiti: max 1 formaggio, max 4 verdure (3 incluse, 4° costa +1.50€)
-  const limits = { formaggi: 1, verdure: 4 };
+  const limits = { formaggi: 1, verdure: 7 };
 
   const basePrice = Number(selections?.basePrice) || 12.5;
-  // Calcolo extra verdure: la 4° verdura costa +1.50€
-  const veggieExtra = selectedVeggies.length > 3 ? 1.5 : 0;
+  const FREE_VEGGIES = 3;
+  const EXTRA_VEGGIE_PRICE = 1.5;
+  const extraVeggieCount = Math.max(0, selectedVeggies.length - FREE_VEGGIES);
+  const veggieExtra = extraVeggieCount * EXTRA_VEGGIE_PRICE;
   const totalPrice = basePrice + veggieExtra;
 
   useEffect(() => {
@@ -174,8 +175,8 @@ export default function PaninoCondimenti() {
             <div className={styles.condimentGrid}>
               {VEGGIES_DATA.map((veg) => {
                 const isSelected = selectedVeggies.includes(veg.id);
-                // Mostra +1.50€ se è la 4° verdura selezionata
-                const showExtraPrice = isSelected && selectedVeggies.indexOf(veg.id) === 3;
+                const vegPosition = selectedVeggies.indexOf(veg.id);
+                const showExtraPrice = isSelected && vegPosition >= FREE_VEGGIES;
                 return (
                   <button
                     key={veg.id}
@@ -220,7 +221,7 @@ export default function PaninoCondimenti() {
               type="button"
               onClick={() => navigate('/panino_salse')}
             >
-              Continua →
+              Continua
             </button>
           </>
         }
