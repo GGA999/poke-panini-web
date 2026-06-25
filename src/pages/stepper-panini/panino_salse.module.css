@@ -1,0 +1,223 @@
+.pageContainer {
+  background-color: #fafafa;
+  min-height: 100vh;
+}
+
+.shell {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 120px;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 40px;
+}
+
+.header {
+  margin-bottom: 35px;
+}
+
+.stepIndicator {
+  color: #2d5a27;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.header h1 {
+  font-size: 32px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.header p {
+  color: #718096;
+  font-size: 15px;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  color: #1a1a1a;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.starIcon {
+  color: #b25e29;
+}
+.sauceIcon {
+  color: #b25e29;
+}
+
+/* Griglia degli Extra */
+.extrasGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.extraCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+}
+
+.imageWrapper {
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fallbackIconBg {
+  background-color: #eaddd7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customIcon {
+  font-size: 32px;
+}
+
+.extraDetails {
+  flex: 1;
+}
+
+.extraDetails h3 {
+  font-size: 16px;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+  font-weight: 700;
+}
+
+.extraPrice {
+  font-size: 13px;
+  color: #718096;
+  margin: 0 0 12px 0;
+}
+
+/* Bottone Aggiungi / Rimuovi */
+.addBtn {
+  background: transparent;
+  border: 1.5px solid #b25e29;
+  color: #b25e29;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addBtn:hover {
+  background: #fdf8f5;
+}
+
+.addBtn.added {
+  background: #b25e29;
+  color: #ffffff;
+}
+
+/* Pillole delle Salse */
+.saucesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.saucePill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0f2f5;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.saucePill:hover {
+  background: #e2e8f0;
+}
+
+.sauceSelected {
+  background: #ffffff;
+  border-color: #b25e29;
+  box-shadow: 0 2px 6px rgba(178, 94, 41, 0.15);
+}
+
+.colorDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fireEmoji {
+  font-size: 10px;
+  position: absolute;
+}
+
+/* Bottom Bar personalizzata (Prezzo in verde e bottone differente) */
+.totalBox span {
+  font-size: 12px;
+  color: #718096;
+  display: block;
+}
+.greenPrice {
+  font-size: 26px;
+  color: #1e522f !important;
+  font-weight: 800;
+}
+
+.submitBtn {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 25px; /* Più arrotondato nell'immagine di riepilogo finale */
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover {
+  background: #e66e00;
+}
+
+@media (max-width: 992px) {
+  .extrasGrid {
+    grid-template-columns: 1fr;
+  }
+}
