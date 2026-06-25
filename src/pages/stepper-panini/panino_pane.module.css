@@ -1,0 +1,156 @@
+/* Struttura layout pagina */
+.pokePageContainer {
+  min-height: calc(100vh - 66px);
+  background-color: var(--bg-main, #fafafa);
+  padding-bottom: 112px; /* spazio per BottomActionBar fixed */
+}
+
+.shell {
+  display: flex;
+  min-height: calc(100vh - 66px);
+}
+
+.pokeMainContent {
+  flex: 1;
+  max-width: 940px;
+  padding: 40px clamp(20px, 5vw, 60px);
+  margin: 0 auto;
+}
+
+.contentHeader {
+  margin-bottom: 24px;
+}
+
+.stepIndicator {
+  color: #2e5927;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sectionContainer {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  color: #1e3922; /* Verde scuro come da immagine */
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Griglia per le Opzioni Dimensione (Normale / Maxi) */
+.sizeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Griglia per le Cards del tipo di pane */
+.sauceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sizeCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.sizeCard.selected {
+  border: 2px solid #a65e32; /* Bordo marroncino aranciato della selezione */
+  background: #fdf8f5; /* Sfondo leggermente caldo */
+}
+
+.sizeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.sizeName {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2d3748;
+}
+
+.sizePriceTag {
+  font-size: 0.9rem;
+  color: #a65e32;
+  font-weight: 600;
+}
+
+.sizeDesc {
+  font-size: 0.875rem;
+  color: #718096;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Ripristino e modifiche stile card pane (ereditate da sauceCard) */
+.sauceCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.sauceCard.selected {
+  border: 2px solid #a65e32;
+  background: #fdf8f5;
+}
+
+/* Fix per l'allineamento dei testi del pane con prezzi composti (es: Per celiaci) */
+.price {
+  font-size: 0.85rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.selectionSummary {
+  color: #2e5927;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.selectionSummary span {
+  color: var(--text-gray);
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.continueButton {
+  background-color: #ff6f00;
+  color: #ffffff;
+  border: 0;
+  padding: 14px 36px;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.continueButton:hover {
+  background-color: #e66400;
+}

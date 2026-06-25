@@ -9,7 +9,6 @@ import proteineIcon from '../../Assets/proteine.svg';
 import condimentiIcon from '../../Assets/condimenti.svg';
 import salseIcon from '../../Assets/salse.svg';
 import cartIcon from '../../Assets/cart.svg';
-import cartSel from '../../Assets/cart_sele.svg';
 import insalata from '../../Assets/insalata.png';
 import quinoa from '../../Assets/quinoa.png';
 import riso_bianco from '../../Assets/riso_bianco.png';
@@ -148,8 +147,10 @@ export default function Poke() {
 
                     {/* Contenitore Flexbox con Icona a sinistra e Prezzo a destra */}
                     <span className={styles.cardHeader}>
-                      <span className={styles.cardIcon}>
-                        <img src={isSelected ? cartSel : cartIcon} alt="" aria-hidden="true" />
+                      <span
+                        className={`${styles.cardIcon} ${isSelected ? styles.iconYellow : styles.iconBlue}`}
+                      >
+                        <img src={cartIcon} alt="" aria-hidden="true" />
                       </span>
                       <span className={styles.price}>€{size.price.toFixed(2)}</span>
                     </span>

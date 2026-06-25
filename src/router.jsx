@@ -14,6 +14,7 @@ const Poke2 = lazy(() => import('./pages/stepper-poke/Poke-pro'));
 const poke_con = lazy(() => import('./pages/stepper-poke/Poke-con'));
 const poke_salse = lazy(() => import('./pages/stepper-poke/poke_salse'));
 const poke_fine = lazy(() => import('./pages/stepper-poke/poke_fine'));
+const panino_pane = lazy(() => import('./pages/stepper-panini/panino_pane'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -67,6 +68,10 @@ export const router = createBrowserRouter(
         {
           path: 'poke_fine',
           element: withSuspense(poke_fine),
+        },
+        {
+          path: 'panino_pane',
+          element: withSuspense(panino_pane),
         },
       ],
     },
