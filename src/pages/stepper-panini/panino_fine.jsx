@@ -4,6 +4,19 @@ import { useCart } from '../../context/Cart.Context';
 import { useConfigurator } from '../../context/ConfiguratorContext';
 import styles from './panino_fine.module.css';
 
+// Immagini Extra
+import baconImg from '../../Assets/bacon.png';
+import uovoImg from '../../Assets/uovo.png';
+import cipollaCrocImg from '../../Assets/cipolla.png';
+import doppiaCarneImg from '../../Assets/carne.png';
+
+const EXTRAS_DATA = [
+  { id: 'bacon', name: 'Bacon Croccante', price: 1.5, image: baconImg },
+  { id: 'uovo', name: "Uovo all'Occhio", price: 1.2, image: uovoImg },
+  { id: 'cipolla_croccante', name: 'Cipolla Croccante', price: 0.8, image: cipollaCrocImg },
+  { id: 'doppia_carne', name: 'Doppia Carne', price: 3.5, image: doppiaCarneImg },
+];
+
 const STORAGE_KEY = 'poke-panini-web:configurator';
 
 const PROTEIN_OPTIONS = {
@@ -145,7 +158,7 @@ export default function PaninoOrder() {
     });
     reset();
     setSelectedExtras({});
-    navigate('/carrello');
+    navigate('/cartPage');
   };
 
   const renderChip = (label) => (
@@ -207,7 +220,7 @@ export default function PaninoOrder() {
               <h3>VERDURE</h3>
               <div className={styles.tags}>
                 {veggies.length
-                  ? toLabels(veggies, VEGGIE_OPTIONS, 'Verdura').map(renderChip)
+                  ? toLabels(veggies, VEGGIE_OPTIONS, "").map(renderChip)
                   : renderChip('Nessuna verdura')}
               </div>
             </div>

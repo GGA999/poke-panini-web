@@ -8,7 +8,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Poke = lazy(() => import('./pages/stepper-poke/Poke'));
 const Panino = lazy(() => import('./pages/Panino'));
 const Ricette = lazy(() => import('./pages/Ricette'));
-const Carrello = lazy(() => import('./pages/Carrello'));
+const cartPage = lazy(() => import('./pages/cartPage'));
 const Ordine = lazy(() => import('./pages/Ordine'));
 const Poke2 = lazy(() => import('./pages/stepper-poke/Poke-pro'));
 const poke_con = lazy(() => import('./pages/stepper-poke/Poke-con'));
@@ -18,6 +18,8 @@ const panino_pane = lazy(() => import('./pages/stepper-panini/panino_pane'));
 const panino_carne = lazy(() => import('./pages/stepper-panini/panino_carne'));
 const panino_con = lazy(() => import('./pages/stepper-panini/panino_con'));
 const panino_salse = lazy(() => import('./pages/stepper-panini/panino_salse'));
+const panino_fine = lazy(() => import('./pages/stepper-panini/panino_fine'));
+const carrello = lazy(() => import('./pages/Carrello'));
 
 const withSuspense = (Component) => (
   <Suspense fallback={<Loading />}>
@@ -49,8 +51,12 @@ export const router = createBrowserRouter(
           element: withSuspense(Ricette),
         },
         {
+          path: 'cartPage',
+          element: withSuspense(cartPage),
+        },
+        {
           path: 'carrello',
-          element: withSuspense(Carrello),
+          element: withSuspense(carrello),
         },
         {
           path: 'ordine/:id',
@@ -87,6 +93,10 @@ export const router = createBrowserRouter(
         {
           path: 'panino_salse',
           element: withSuspense(panino_salse),
+        },
+        {
+          path: 'panino_fine',
+          element: withSuspense(panino_fine),
         },
       ],
     },

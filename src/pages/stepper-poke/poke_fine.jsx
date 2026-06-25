@@ -135,7 +135,7 @@ export default function PokeOrder() {
     });
     reset();
     setExtras({});
-    navigate('/carrello');
+    navigate('/cartPage');
   };
 
   const renderChip = (label) => (
