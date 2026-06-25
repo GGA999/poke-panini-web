@@ -43,12 +43,23 @@ export default function PaninoSalseExtra() {
   const [alert, setAlert] = useState(null);
 
   // Calcolo dinamico del prezzo
-  const basePrice = Number(selections?.basePrice) || 12.5;
+  const proteinPrice =
+    {
+      manzo: 0,
+      pollo: 0.5,
+      cotoletta: 1,
+      pulled: 2,
+      vegetale: 1.5,
+    }[selections?.proteina] || 0;
+  const basePrice = Number(selections?.basePrice) || 0;
+  const FREE_VEGGIES = 3;
+  const EXTRA_VEGGIE_PRICE = 1.5;
+  const veggieExtra = Math.max(0, (selections?.verdure?.length || 0) - FREE_VEGGIES) * EXTRA_VEGGIE_PRICE;
   const extrasPrice = EXTRAS_DATA.filter((e) => selectedExtras.includes(e.id)).reduce(
     (sum, e) => sum + e.price,
     0
   );
-  const totalPrice = basePrice + extrasPrice;
+  const totalPrice = basePrice + proteinPrice + veggieExtra + extrasPrice;
 
   useEffect(() => {
     if (!alert) return;
@@ -60,7 +71,7 @@ export default function PaninoSalseExtra() {
     updateSelection('extras', selectedExtras);
     updateSelection('salse', selectedSauces);
     setPricing(totalPrice);
-  }, [selectedExtras, selectedSauces, totalPrice]);
+  }, [selectedExtras, selectedSauces, totalPrice, updateSelection, setPricing]);
 
   const toggleExtra = (id) => {
     if (selectedExtras.includes(id)) {
@@ -182,9 +193,17 @@ export default function PaninoSalseExtra() {
           </div>
         }
         right={
-          <button className={styles.submitBtn} type="button" onClick={() => navigate('/riepilogo')}>
-            Vai al Riepilogo
-          </button>
+          <>
+            <div className={styles.summary}>
+              <strong>
+                {selections?.size || 'Normale'} + {selections?.bread || 'Bun Classico'}
+              </strong>
+              <span>Selezionato</span>
+            </div>
+            <button className={styles.submitBtn} type="button" onClick={() => navigate('/panino_fine')}>
+              Vai al Riepilogo
+            </button>
+          </>
         }
       />
     </div>

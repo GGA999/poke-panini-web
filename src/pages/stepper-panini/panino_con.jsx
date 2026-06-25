@@ -55,18 +55,26 @@ export default function PaninoCondimenti() {
 
   const limits = { formaggi: 1, verdure: 7 };
 
-  const basePrice = Number(selections?.basePrice) || 12.5;
+  const basePrice = Number(selections?.basePrice) || 0;
+  const proteinPrice =
+    {
+      manzo: 0,
+      pollo: 0.5,
+      cotoletta: 1,
+      pulled: 2,
+      vegetale: 1.5,
+    }[selections?.proteina] || 0;
   const FREE_VEGGIES = 3;
   const EXTRA_VEGGIE_PRICE = 1.5;
   const extraVeggieCount = Math.max(0, selectedVeggies.length - FREE_VEGGIES);
   const veggieExtra = extraVeggieCount * EXTRA_VEGGIE_PRICE;
-  const totalPrice = basePrice + veggieExtra;
+  const totalPrice = basePrice + proteinPrice + veggieExtra;
 
   useEffect(() => {
     updateSelection('formaggi', selectedCheeses);
     updateSelection('verdure', selectedVeggies);
     setPricing(totalPrice);
-  }, [selectedCheeses, selectedVeggies, totalPrice]);
+  }, [selectedCheeses, selectedVeggies, totalPrice, updateSelection, setPricing]);
 
   useEffect(() => {
     if (!alert) return;
@@ -212,7 +220,7 @@ export default function PaninoCondimenti() {
           <>
             <div className={styles.summary}>
               <strong>
-                {selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}
+                {selections?.size || 'Normale'} + {selections?.bread || 'Bun Classico'}
               </strong>
               <span>Selezionato</span>
             </div>

@@ -1,6 +1,16 @@
 .pageContainer {
+  position: relative;
   background-color: #f8f9fa;
   min-height: 100vh;
+}
+
+.alert {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 20;
+  width: min(420px, calc(100% - 32px));
+  box-shadow: 0 18px 45px rgba(44, 24, 16, 0.14);
 }
 
 .shell {

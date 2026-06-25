@@ -75,6 +75,7 @@ export default function PaninoConfigurator() {
   useEffect(() => {
     updateSelection('size', selectedSize);
     updateSelection('bread', selectedBread);
+    updateSelection('basePrice', totalPrice);
     setPricing(totalPrice);
   }, [selectedSize, selectedBread, totalPrice, updateSelection, setPricing]);
 

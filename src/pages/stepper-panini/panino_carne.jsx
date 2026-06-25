@@ -80,14 +80,14 @@ export default function PaninoProteine() {
     }
   }, [type, initialize]);
 
-  const basePrice = Number(selections?.basePrice) || 12.5;
+  const basePrice = Number(selections?.basePrice) || 0;
   const proteinPrice = PROTEIN_DATA.find((p) => p.id === selectedProtein)?.price || 0;
   const totalPrice = basePrice + proteinPrice;
 
   useEffect(() => {
     updateSelection('proteina', selectedProtein);
     setPricing(totalPrice);
-  }, [selectedProtein, totalPrice]);
+  }, [selectedProtein, totalPrice, updateSelection, setPricing]);
 
   const steps = [
     { id: 'dimensione_pane', label: 'Tipo di pane', icon: baseIcon, completed: true },
@@ -161,7 +161,7 @@ export default function PaninoProteine() {
           <>
             <div className={styles.summary}>
               <strong>
-                {selections?.size || 'Regular'} + {selections?.base || 'Riso Venere'}
+                {selections?.size || 'Normale'} + {selections?.bread || 'Bun Classico'}
               </strong>
               <span>Selezionato</span>
             </div>

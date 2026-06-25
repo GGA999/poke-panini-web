@@ -1,8 +1,18 @@
 /* Struttura layout pagina */
 .pokePageContainer {
+  position: relative;
   min-height: calc(100vh - 66px);
   background-color: var(--bg-main, #fafafa);
   padding-bottom: 112px; /* spazio per BottomActionBar fixed */
+}
+
+.alert {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 20;
+  width: min(420px, calc(100% - 32px));
+  box-shadow: 0 18px 45px rgba(44, 24, 16, 0.14);
 }
 
 .shell {
